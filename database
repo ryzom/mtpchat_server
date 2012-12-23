@@ -1,0 +1,70 @@
+
+# <Mtp> Variables
+
+UserNbMax 10
+
+# <Mtp> Groups
+
+# Group|Leader|Level|Name|Symbol
+
+System|Root|12|Administrators|
+HeadArch|Root|11|Nevrax CS Leads|¤
+JoltArch|Root|10|Jolt CS Leads|
+NvxDev|Root|10|Nevrax Developpers|
+SnrGM|Yumeroh|9|Senior Game Masters|ß
+ComMngr|Root|8|Community Managers|
+EvtMngr|Root|8|Event Managers|
+GM|Root|8|Game Masters|@
+VtnGuide|horion|7|Veteran Guides|V
+SnrGuide|Root|6|Senior Guides|G
+EvtGuide|Root|5|Event Guides|
+Guide|Root|5|Guides|g
+Reporter|Root|5|Community Reporters|
+DC|Root|3|Dunce's Caps|
+Release|Root|3|Homins|
+Register|Root|1|Registered Users|
+NoGroup|Root|0|Unregistered Users|
+Banned|Root|-2|Banned Users|
+
+# <Mtp> Users
+
+# User|Group|Password|Name|EMail|Formation|RegisterTime|ConnectTime|Birthday|KickNb|KickedNb|LoginNb|TotalTime|LastLoginHost|LastLoginTime|FailureNb|LastFailHost|LastFailTime
+
+Mtp|System|MTLHwlHN1Z552|<Mtp> Server|letouzey@lifl.fr|programme|845278439|942240397|845287200|0|0|21|3595||0|0||0
+Root|System|oPYoELEA8tPJE|<Mtp> Operator|letouzey@lifl.fr|<Unknown>|845278439|942488517|0|39|0|474|45712||0|0||0
+
+# <Mtp> Aliases
+
+# User|Alias|Command
+
+Mtp|.A|.Switch away
+Mtp|.Away|.Switch away
+Mtp|.B|.Set away 0
+Mtp|.Bow|.Emote bows gracefully
+Mtp|.ChCrypt|.Set $1.Crypt $2
+Mtp|.ChGroup|.Set $1.Group $2
+Mtp|.ChLeader|.Set $1.Leader $2
+Mtp|.Close|.Switch Closed
+Mtp|.Et|.Set $*
+Mtp|.Grin|.Emote grins evilly
+Mtp|.Hide|.Switch Hidden
+Mtp|.Laugh|.Emote falls down laughing
+Mtp|.Protect|.Switch Protected
+Mtp|.Q|.Quit $*
+Mtp|.R|.Reply $*
+Mtp|.Resident|.Switch Resident
+Mtp|.Sit|.Emote sits down
+Mtp|.Sleep|.Emote falls fast asleep
+Mtp|.Smile|.Emote smiles happily
+Mtp|.T|.Tell $*
+Mtp|.Topic|.Set Topic $*
+Mtp|.W|.Who all
+Mtp|.Wave|.Emote waves
+Mtp|.WhoAll|.Who all
+Mtp|.ell|.Tell $*
+Mtp|.uit|.Quit $*
+
+# <Mtp> Plans
+
+# User|LineNumber|Plan
+
