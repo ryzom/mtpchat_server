@@ -35,7 +35,7 @@ OBJS= channel.o command.o crypt.o database.o group.o list.o mtp.o server.o \
       socket.o token.o user.o variable.o
 
 mtp: $(OBJS)
-	$(CC) $(LDFLAGS) -o mtp $(OBJS)
+	$(CC) -o mtp $(OBJS) $(LDFLAGS)
 
 channel.o: channel.c channel.h object.h list.h user.h database.h \
            socket.h types.h group.h mtp.h token.h variable.h

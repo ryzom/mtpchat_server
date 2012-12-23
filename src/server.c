@@ -481,7 +481,7 @@ static void Server(void) {
       }
 
 	  /* Check if the file with new users exists */
-	  CheckNewUsersFile();
+//	  CheckNewUsersFile();
 
       if (DataBaseChanged) WriteDataBase();
 
