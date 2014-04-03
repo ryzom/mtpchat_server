@@ -45,14 +45,29 @@ int IsNumber(const char *String) {
 
 /* IsId() */
 
+/*int IsId(const char *String) {
+
+   if (String == NULL || strlen(String) > ID_SIZE) return FALSE;
+
+   if (! isalnum(*String++)) return FALSE;
+
+   while (*String != '\0') {
+      if (! isalnum(*String++)) return FALSE;
+   }
+
+   return TRUE;
+}*/
+
 int IsId(const char *String) {
 
    if (String == NULL || strlen(String) > ID_SIZE) return FALSE;
 
-//   if (! isalpha(*String++)) return FALSE;
+   if (! isalnum(*String) && !(*String == '_')) return FALSE;
+   *String++;
 
    while (*String != '\0') {
-      if (! isalnum(*String++)) return FALSE;
+      if (! isalnum(*String) && !(*String == '_')) return FALSE;
+      *String++;
    }
 
    return TRUE;

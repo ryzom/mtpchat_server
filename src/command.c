@@ -78,6 +78,7 @@ static int      ExecuteCommand (user *User, char *UserString, int Force);
 static command *SearchCommand  (const char *CommandName);
 static char    *TimeString     (int Time);
 
+static void  AddUser  (user *User, command *Command, arglist *ArgList);
 static void  Alias    (user *User, command *Command, arglist *ArgList);
 static void  Beep     (user *User, command *Command, arglist *ArgList);
 static void  Birthday (user *User, command *Command, arglist *ArgList);
@@ -115,8 +116,12 @@ static void  Tell     (user *User, command *Command, arglist *ArgList);
 static void  UnAlias  (user *User, command *Command, arglist *ArgList);
 static void  UpTime   (user *User, command *Command, arglist *ArgList);
 static void  Users    (user *User, command *Command, arglist *ArgList);
+#if CMD_WALL
 static void  Wall     (user *User, command *Command, arglist *ArgList);
+#endif
+#if CMD_WHEREIS
 static void  WhereIs  (user *User, command *Command, arglist *Arglist);
+#endif
 static void  Who      (user *User, command *Command, arglist *ArgList);
 
 static int NodeCmp   (const user *User1, const user *User2);
@@ -136,11 +141,13 @@ static command CommandList[] = {
 /* Attention : les differentes declarations d'une commande "aux arguments pres"
  doivent * IMPERATIVEMENT* se suivre ..... */
 
+   { CMD_PREFIX"AddUser",  "HeadArch", FALSE, FALSE, "$Word $Word $Word", AddUser,  "<User> <Password> <Group>"       },
+
    { CMD_PREFIX"Alias",    REGISTER_GROUP, FALSE, FALSE, "",              Alias,    "[<Alias> [<Command>]]"         },
    { CMD_PREFIX"Alias",    REGISTER_GROUP, FALSE, FALSE, "$Word",         Alias,    "[<Alias> [<Command>]]"         },
    { CMD_PREFIX"Alias",    REGISTER_GROUP, FALSE, FALSE, "$Word $String", Alias,    "[<Alias> [<Command>]]"         },
 
-   { CMD_PREFIX"Beep",     REGISTER_GROUP,  TRUE,  FALSE, "$User",         Beep,     "<User>"                        },
+   { CMD_PREFIX"Beep",     REGISTER_GROUP, TRUE,  FALSE, "$User",         Beep,     "<User>"                        },
 
    { CMD_PREFIX"Birthday", DEFAULT_GROUP,  TRUE,  FALSE, "",              Birthday, "[<User>]"                      },
    { CMD_PREFIX"Birthday", DEFAULT_GROUP,  TRUE,  FALSE, "$User",         Birthday, "[<User>]"                      },
@@ -157,6 +164,7 @@ static command CommandList[] = {
    { CMD_PREFIX"ClearMsg", REGISTER_GROUP, FALSE, FALSE, "$Word $Word",   ClearMsg, ""                              },
 
    { CMD_PREFIX"Commands", DEFAULT_GROUP,  TRUE,  FALSE, "",              Commands, ""                              },
+   { CMD_PREFIX"Cmds",     "GM",           TRUE,  FALSE, "",              Commands, ""                              },
 
    { CMD_PREFIX"Date",     DEFAULT_GROUP,  TRUE,  FALSE, "",              Date,     ""                              },
 
@@ -207,7 +215,6 @@ static command CommandList[] = {
    { CMD_PREFIX"Set",      DEFAULT_GROUP,  FALSE, FALSE, "",              Set,      "<User>|<Channel>|<Group> <Variable> <Value>" },
 /*  dans un premier temps, on laisse set se demerder.... on verra + tard.....  */
 
-   { "SendData",  DEFAULT_GROUP, TRUE,  FALSE, "$User $String", SendData,  "<User> <Message>"             },
    { CMD_PREFIX"SendData", DEFAULT_GROUP, TRUE,  FALSE, "$User $String", SendData,  "<User> <Message>"             },
 
    { CMD_PREFIX"SendMsg",  REGISTER_GROUP, FALSE, FALSE, "$User $String", SendMsg,  "<User> <Message>"              },
@@ -416,8 +423,8 @@ static int ExecuteCommand(user *User, char *UserString, int Force) {
       *UserArgs++='\0';
    }
 
-   Command = SearchCommand(UserString); /* trouve la premiere declaration de*/
-                                        /* commande correspondante*/
+   Command = SearchCommand(UserString); /* trouve la premiere declaration de */
+                                        /* commande correspondante */
    while( Command != NULL && SameString(Command->Name,UserString) && found!=2)
    {
      /*
@@ -611,7 +618,7 @@ static int ExecuteCommand(user *User, char *UserString, int Force) {
       }
    }
 
-    if (exists && Command != NULL && Command->Function != NULL 
+   if (exists && Command != NULL && Command->Function != NULL 
     && UserLevel(User) >= GroupLevel(SearchGroup(Command->Group))
     && (! Force || Command->ForceOk)) {
       if (Command->Trace) {
@@ -626,7 +633,8 @@ static int ExecuteCommand(user *User, char *UserString, int Force) {
       if (UserArgs != NULL) *--UserArgs = UserChar;
       return TRUE;
    }
-   else if (strlen(UserString) > 0 && UserString[0] == '.')
+
+   if (strlen(UserString) > 0 && StartWith(UserString, CMD_PREFIX)) {
    {
 		 if (exists) {
        /* command not autorised */
@@ -636,9 +644,9 @@ static int ExecuteCommand(user *User, char *UserString, int Force) {
        sprintf(errorstring, SERVER_HEADER" %s is an unknown command\n", UserString);
 		 }
 
-     SendUser(User, "%s", errorstring);
-     return FALSE;
-	 }
+      SendUser(User, "%s", errorstring);
+      return FALSE;
+   }
 
    if (UserArgs != NULL) *--UserArgs = UserChar;
    if (User->Language == LANGUAGE_NONE) return TRUE;
@@ -760,6 +768,55 @@ static char *TimeString(int Time) {
    return String;
 }
 
+/* AddUser() */
+/* ok 0 */
+
+static void AddUser(user *User, command *Command, arglist *ArgList) {
+
+  user *UId = NULL;
+  char *UserName, *Password, *GroupName;
+
+   if (UserLevel(User) < GroupLevel(SearchGroup("HeadArch"))) {
+      DENIED(User,Command);
+      return;
+   }
+
+   UserName = (char *)ArgList->arg;
+   Password = (char *)ArgList->next->arg;
+   GroupName = (char *)ArgList->next->next->arg;
+
+   if (! IsId(UserName)) {
+     SendUser(User,SERVER_HEADER" '%s' is not a valid username\n",UserName);
+     return;
+   }
+
+   if (SearchUId(UserName) != NULL) {
+     SendUser(User,SERVER_HEADER" User '%s' already exists\n",UserName);
+     return;
+   }
+   
+   if (! IsPassword(Password)) {
+     SendUser(User,SERVER_HEADER" '%s' is not a valid password\n",UserName);
+     return;
+   }
+
+   if (SearchGroup(GroupName) == NULL) {
+     SendUser(User,SERVER_HEADER" Group '%s' doesn't exists\n",GroupName);
+     return;
+   }
+
+   UId = NewUId(UserName,SearchGroup(GroupName)->Id,CryptPassword(Password),NULL,NULL,NULL,time(NULL),0,0,0,0,0,0,NULL,0,0,NULL,0);
+   if (UId != NULL) {
+     AddTail(UserList,UId);
+     DataBaseChanged = TRUE;
+     SendUser(User,SERVER_HEADER" You added user '%s'\n",UserName);
+     Trace(NEWUSERS_LOG,"User '%s' '%s' '%s' added manually by '%s'", UserName, Password, GroupName, User->Id);
+   } else {
+     SendUser(User,SERVER_HEADER" Can't create user '%s'\n",UserName);
+     Trace(NEWUSERS_LOG,"Can't create manually user '%s'", UserName);
+   }
+}
+
 /* Alias() */
 /* vanhu ok 0 */
 
@@ -831,18 +888,18 @@ static void Alias(user *User, command *Command, arglist *ArgList) {
 
       if (SystemAlias->Aliases->Head != NULL) {
          SortList(SystemAlias->Aliases, (CMP_FCT)AliasCmp);
-         SendUser(User,"\n<SoR> System Aliases : \n");
+         SendUser(User,"\n"SERVER_HEADER" System Aliases : \n");
          for (Node = SystemAlias->Aliases->Head; Node != NULL; Node = Node->Next)
          {
             Alias = (alias *) Node->Object;
             SendUser(User,"%-8s %s\n",Alias->Id,Alias->Command);
          }
       }
-      else SendUser(User,"\n<SoR> No System Aliases defined !\n");
+      else SendUser(User,"\n"SERVER_HEADER" No System Aliases defined !\n");
 
       if (User->Aliases->Head != NULL) {
          SortList(User->Aliases, (CMP_FCT)AliasCmp);
-         SendUser(User,"\n<SoR> User Aliases : \n");
+         SendUser(User,"\n"SERVER_HEADER" User Aliases : \n");
          for (Node = User->Aliases->Head; Node != NULL; Node = Node->Next)
          {
             Alias = (alias *) Node->Object;
@@ -1191,7 +1248,14 @@ static void Finger(user *User, command *Command, arglist *ArgList) {
    }
    if (CanSee(User,UId)) {
       SendUser(User,"On since   : %s\n",Time);
-      if (IsAdmin(User)) SendUser(User,"From host  : %s\n",UId->Host);
+      if (UserLevel(User) < GroupLevel(SearchGroup("GM")))
+      {
+         SendUser(User,"From host  : <Unknown>\n");
+      }
+      else
+      {
+         SendUser(User,"From host  : %s\n",UId->Host);
+      }
       SendUser(User,"Client     : %s\n",UId->Client);
       SendUser(User,"On channel : %s\n",UId->Channel);
       if (UId->Away) {
@@ -1615,12 +1679,24 @@ static void Kill(user *User, command *Command, arglist *ArgList) {
    user *Kill;
    char FileName[STRING_SIZE];
 
-   if (! IsSuperUser(User)) {
+   /*if (! IsSuperUser(User)) {
+      DENIED(User,Command);
+      return;
+      }*/
+
+   if (UserLevel(User) < GroupLevel(SearchGroup("HeadArch"))) {
       DENIED(User,Command);
       return;
    }
+
    Kill = (user *)ArgList->arg;
-   if (! IsUpperUser(User,Kill)) {
+
+   if (!SameString(User->Group, "HeadArch") && SameString(Kill->Group, "HeadArch")) {
+      DENIED(User,Command);
+      return;
+   }
+
+   if (! IsUpperEqUser(User,Kill)) {
       DENIED(User,Command);
       return;
    }
@@ -1754,7 +1830,7 @@ static void Open(user *User, command *Command, arglist *ArgList) {
 
 static void Quit(user *User, command *Command, arglist *ArgList) {
 
-   SendUser(User,SERVER_HEADER" You leave <SoR> Chat !\n");
+   SendUser(User,SERVER_HEADER" You leave "SERVER_HEADER" Chat !\n");
 
    if (ArgList != NULL) {
       Logout(User,NULL,SERVER_HEADER" %s leaves (%s) !\n",User->Id,(char *)ArgList->arg);
@@ -1966,9 +2042,19 @@ static void Set(user *User, command *Command, arglist *ArgList) {
    case USER :
 
       UId = (user *) Object;
-      if (! IsUpperUser(User,UId) && User != UId) {
-         DENIED(User,Command);
-         return;
+      if (User == UId) {
+      } else {
+         if (SameString(Variable,"Group")) {
+            if (! IsUpperEqUser(User,UId)) {
+               DENIED(User,Command);
+               return;
+            }
+         } else {
+            if (! IsUpperUser(User,UId)) {
+               DENIED(User,Command);
+               return;
+            }
+         }
       }
 
       if (SameString(Variable,"Login") || SameString(Variable,"Id")) {
@@ -2005,7 +2091,10 @@ static void Set(user *User, command *Command, arglist *ArgList) {
             SendUser(User,SERVER_HEADER" Unknown group \"%s\"\n",Value);
             return;
          }
+         /* no more leader
          if (User == UId || UserLevel(User) < GroupLevel(Group) || (UserLevel(User) == GroupLevel(Group) && ! SameString(User->Id,Group->Leader))) {
+         */
+         if (User == UId || UserLevel(User) < GroupLevel(Group)) {
             DENIED(User,Command);
             return;
          }
@@ -2018,14 +2107,14 @@ static void Set(user *User, command *Command, arglist *ArgList) {
             SendUser(User,SERVER_HEADER" You put %s in group %s\n",UId->Id,UId->Group);
          }
       } else if (SameString(Variable,"Password")) {
-         if (User != UId && ! IsSuperUser(User)) {
+         if (/*User != UId &&*/ ! IsSuperUser(User)) {
             DENIED(User,Command);
             return;
          }
          if (! IsPassword(Value)) {
             SendUser(User,SERVER_HEADER" Invalid password : \"%s\"\n",Value);
          } else if (! UId->Registered) {
-            SendUser(User,"<mtp> You are not registered yet, use \"Register <Password>\" instead.\n");
+            SendUser(User,SERVER_HEADER" You are not registered yet, use \"Register <Password>\" instead.\n");
          } else {
             strcpy(UId->Password,CryptPassword(Value));
             DataBaseChanged = TRUE;
@@ -2077,7 +2166,8 @@ static void Set(user *User, command *Command, arglist *ArgList) {
             SendUser(User,SERVER_HEADER" %s's formation is now \"%s\"\n",UId->Id,UId->Formation);
          }
       } else if (SameString(Variable,"Crypt")) {
-         if (! IsUpperUser(User,UId)) {
+         //if (! IsUpperUser(User,UId)) {
+         if (UserLevel(User) < GroupLevel(SearchGroup("SnrGuide"))) {
             DENIED(User,Command);
             return;
          }
@@ -2292,7 +2382,7 @@ static void Set(user *User, command *Command, arglist *ArgList) {
          SendChannel(User,SERVER_HEADER" %s put channel %s in group %s\n",User->Id,Channel->Id,Channel->Group);
          SendUser(User,SERVER_HEADER" You put channel %s in group %s\n",Channel->Id,Channel->Group);
       } else if (SameString(Variable,"Topic")) {
-         if (Channel->Protected && UserLevel(User) < ChannelLevel(Channel)) {
+         if (/*Channel->Protected && ace: il faut etre du groupe du channel pour changer le topic*/ UserLevel(User) < ChannelLevel(Channel)) {
             DENIED(User,Command);
             return;
          }
@@ -2794,6 +2884,9 @@ static void Users(user *User, command *Command, arglist *ArgList) {
    ClearList(SortedList);
 }
 
+
+#if CMD_WALL
+
 /* Wall() */
 /* ok 0 */
 
@@ -2812,11 +2905,15 @@ static void Wall(user *User, command *Command, arglist *ArgList) {
       return;
    }
    
-   Trace(WALL_LOG,"%-8.8s %s",User->Id,Args);
-   AddHistory(WallHistory,"%-8.8s %s",User->Id,Args);
+   Trace(WALL_LOG,"%-12.12s %s",User->Id,Args);
+   AddHistory(WallHistory,"%-12.12s %s",User->Id,Args);
    SendUsers(User,SERVER_HEADER" %s writes to the wall: %s\n",User->Id,Args);
    SendUser(User,SERVER_HEADER" You write to the wall: %s\n",Args);
 }
+
+#endif
+
+#if CMD_WHEREIS
 
 /* WhereIs() */
 
@@ -2851,6 +2948,8 @@ static void WhereIs(user *User, command *Command, arglist *ArgList) {
    }
 }
 
+#endif
+
 /* Who() */
 
 static void Who(user *User, command *Command, arglist *ArgList) {
@@ -2881,6 +2980,7 @@ static void Who(user *User, command *Command, arglist *ArgList) {
    Time = time(NULL);
    SendUser(User," Login        Group   Channel   Idle  On For C              From host\n");
    SendUser(User,"------------ -------- -------- ------ ------ - ------------------------------------\n");
+
    for (Node = SortedList->Head; Node != NULL; Node = Node->Next) {
       Logged = (user *) Node->Object;
       if ((ChannelName == NULL || SameString(Logged->Channel,ChannelName))
