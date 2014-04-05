@@ -253,6 +253,7 @@ int WriteDataBase(void) {
 
    fprintf(DataBase,"\n# Variables\n\n");
    fprintf(DataBase,"UserNbMax %d\n",UserNbMax);
+   fprintf(DataBase,"RegOnly %d\n",RegOnly);
    fprintf(DataBase,"NewUsersFile %s\n",NewUsersFile);
 
    fprintf(DataBase,"\n# Groups\n\n# Group|Leader|Level|Name|Symbol\n\n");
