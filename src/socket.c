@@ -26,6 +26,8 @@
 #include <errno.h>
 #include <time.h>
 
+#ifdef _WIN32
+#else
 #include <unistd.h>
 #include <fcntl.h>
 #include <netdb.h>
@@ -40,6 +42,7 @@
 #define TELCMDS
 #define TELOPTS
 #include <arpa/telnet.h>
+#endif
 
 #include "socket.h"
 #include "types.h"

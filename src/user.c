@@ -26,10 +26,14 @@
 #include <time.h>
 #include <ctype.h>
 
+#ifdef _WIN32
+#else
 #include <unistd.h>
+#include <dirent.h>
+#endif
+
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <dirent.h>
 
 #include "user.h"
 #include "types.h"

@@ -44,15 +44,19 @@
 #include <signal.h>
 #include <errno.h>
 
+#ifdef _WIN32
+#else
 #include <unistd.h>
 #include <netdb.h>
 #include <pwd.h>
 #include <sys/errno.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <sys/wait.h>
 
 #include <arpa/telnet.h>
+#endif
+
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "server.h"
 #include "types.h"
