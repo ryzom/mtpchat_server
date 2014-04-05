@@ -53,7 +53,7 @@ static int   Rand64     (void);
 int ReadDataBase(void) {
 
    FILE   *DataBase;
-   char    Line[LINE_MAXSIZE], *UserName, *GroupName, *Password, *Name, *EMail, *Formation, *LeaderName, *AliasName, *Command, *Plan, *LastLoginHost, *LastFailHost;
+   char    Line[LINE_MAXSIZE], *UserName, *GroupName, *Password, *Name, *Symbol, *EMail, *Formation, *LeaderName, *AliasName, *Command, *Plan, *LastLoginHost, *LastFailHost;
    time_t  RegisterTime, ConnectTime, Birthday, LastLoginTime, LastFailTime;
    int     Level, KickNb, KickedNb, LoginNb, TotalTime, LineNumber, FailureNb;
    user   *User, *UId;
