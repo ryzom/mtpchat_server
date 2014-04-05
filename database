@@ -3,6 +3,7 @@
 
 UserNbMax 10
 RegOnly 0
+NewUsersFile users
 
 # <Mtp> Groups
 
