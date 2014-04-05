@@ -127,16 +127,18 @@ char *DragCrypt(const char *entree) {
 
   static char sortie[STRING_SIZE];
   char tok[NB_WORD][WORD_SIZE], seps[] = " \t\n";
-  char *token;
+  char *token, *nouvelleentree;
   int used[STRING_SIZE];
   int nb_tok=0,i;
 
   strcpy(sortie,"");
-  token = strtok( entree, seps );
+  nouvelleentree = strdup(entree);
+  token = strtok( nouvelleentree, seps );
   while( token != NULL ) {
     strcpy(tok[nb_tok++],token );
     token = strtok( NULL, seps );
   }
+  free(nouvelleentree);
 
   for(i=0;i<nb_tok;i++) used[i]=1;
   
