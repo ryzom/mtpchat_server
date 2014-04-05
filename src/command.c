@@ -1285,10 +1285,9 @@ void Finger(user *User, command *Command, arglist *ArgList) {
 }
 
 void Get(user *User, command *Command, arglist *ArgList) {
-  int I;
   char    *ObjectName, *Variable, *Args;
   object  *Object;
-  user    *UId, *OldUId, *NewUId;
+  user    *UId;
   group   *Group;
   channel *Channel;
 

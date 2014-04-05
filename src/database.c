@@ -378,9 +378,9 @@ void CheckNewUsersFile(void) {
 	static time_t LastCheckTime = 0;
 	struct stat   buf;
 	FILE   *fp = NULL;
-	char    Line[256], *UserName, *GroupName, *Password, *Name, *EMail, *Formation, *LeaderName, *AliasName, *Command, *Plan, *LastLoginHost, *LastFailHost;
+	char    Line[256], *UserName, *GroupName, *Password, *Name, *EMail, *Formation, *LastLoginHost, *LastFailHost;
 	time_t  RegisterTime, ConnectTime, Birthday, LastLoginTime, LastFailTime;
-	int     Level, KickNb, KickedNb, LoginNb, TotalTime, LineNumber, FailureNb;
+	int     KickNb, KickedNb, LoginNb, TotalTime, FailureNb;
 	user   *UId = NULL;
 	group  *Group = NULL;
 	alias  *Alias = NULL;

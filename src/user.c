@@ -517,7 +517,7 @@ void SendUser(user *User, const char *Format, ...) {
 
    time_t   Time;
    va_list  Args;
-   char    *Char, *Char2, String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
+   char    String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
 
    if (User->State == NOT_LOGGED || ! IsAliveConn(User->Conn)) return;
 
@@ -540,7 +540,7 @@ void SendUsers(const user *Except, const char *Format, ...) {
 
    time_t   Time;
    va_list  Args;
-   char    *Char, *Char2, String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
+   char    String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
    node    *Node;
    user    *User;
 
@@ -568,7 +568,7 @@ void SendInOut(const user *Except, const char *Format, ...) {
 
    time_t   Time;
    va_list  Args;
-   char    *Char, *Char2, String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
+   char    String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
    node    *Node;
    user    *User;
 
@@ -596,7 +596,7 @@ void SendShout(const user *Except, const char *Format, ...) {
 
    time_t   Time;
    va_list  Args;
-   char    *Char, *Char2, String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
+   char    String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
    node    *Node;
    user    *User;
 

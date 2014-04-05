@@ -134,7 +134,7 @@ int IsEmptyString(const char *String) {
 
 /* SameChar() */
 
-int SameChar(const char Char1, const char Char2) {
+int SameChar(char Char1, char Char2) {
 
    return toupper(Char1) == toupper(Char2);
 }
