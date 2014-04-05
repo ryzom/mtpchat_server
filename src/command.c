@@ -71,68 +71,68 @@ struct command {
 
 /* Prototypes */
 
-static void     KillArgList    (arglist *tete);
-static int      ArgsType       (const char *ArgStr);
-static int      AliasExpand    (user *User, alias *Alias, char *Args, char *Expand);
-static int      ExecuteCommand (user *User, char *UserString, int Force);
-static command *SearchCommand  (const char *CommandName);
-static char    *TimeString     (int Time);
+void     KillArgList    (arglist *tete);
+int      ArgsType       (const char *ArgStr);
+int      AliasExpand    (user *User, alias *Alias, char *Args, char *Expand);
+int      ExecuteCommand (user *User, char *UserString, int Force);
+command *SearchCommand  (const char *CommandName);
+char    *TimeString     (int Time);
 
-static void  AddUser  (user *User, command *Command, arglist *ArgList);
-static void  Alias    (user *User, command *Command, arglist *ArgList);
-static void  Beep     (user *User, command *Command, arglist *ArgList);
-static void  Birthday (user *User, command *Command, arglist *ArgList);
-static void  Bump     (user *User, command *Command, arglist *ArgList);
-static void  Channels (user *User, command *Command, arglist *ArgList);
-static void  Clear    (user *User, command *Command, arglist *ArgList);
-static void  ClearMsg (user *User, command *Command, arglist *ArgList);
-static void  Commands (user *User, command *Command, arglist *ArgList);
-static void  Date     (user *User, command *Command, arglist *ArgList);
-static void  Emote    (user *User, command *Command, arglist *ArgList);
-static void  Finger   (user *User, command *Command, arglist *ArgList);
-static void  Force    (user *User, command *Command, arglist *ArgList);
-static void  Get      (user *User, command *Command, arglist *ArgList);
-static void  Groups   (user *User, command *Command, arglist *ArgList);
-static void  Help     (user *User, command *Command, arglist *ArgList);
-static void  History  (user *User, command *Command, arglist *ArgList);
-static void  Invite   (user *User, command *Command, arglist *ArgList);
-static void  Join     (user *User, command *Command, arglist *ArgList);
-static void  Kick     (user *User, command *Command, arglist *ArgList);
-static void  Kill     (user *User, command *Command, arglist *ArgList);
-static void  Leave    (user *User, command *Command, arglist *ArgList);
-static void  MkGroup  (user *User, command *Command, arglist *ArgList);
-static void  Open     (user *User, command *Command, arglist *ArgList);
-static void  Quit     (user *User, command *Command, arglist *ArgList);
-static void  Register (user *User, command *Command, arglist *ArgList);
-static void  Reply    (user *User, command *Command, arglist *ArgList);
-static void  SendData (user *User, command *Command, arglist *ArgList);
-static void  SendMsg  (user *User, command *Command, arglist *ArgList);
-static void  Set      (user *User, command *Command, arglist *ArgList);
-static void  Shout    (user *User, command *Command, arglist *ArgList);
-static void  ShowMsg  (user *User, command *Command, arglist *ArgList);
-static void  Shutdown (user *User, command *Command, arglist *ArgList);
-static void  Switch   (user *User, command *Command, arglist *ArgList);
-static void  Tell     (user *User, command *Command, arglist *ArgList);
-static void  UnAlias  (user *User, command *Command, arglist *ArgList);
-static void  UpTime   (user *User, command *Command, arglist *ArgList);
-static void  Users    (user *User, command *Command, arglist *ArgList);
+void  AddUser  (user *User, command *Command, arglist *ArgList);
+void  Alias    (user *User, command *Command, arglist *ArgList);
+void  Beep     (user *User, command *Command, arglist *ArgList);
+void  Birthday (user *User, command *Command, arglist *ArgList);
+void  Bump     (user *User, command *Command, arglist *ArgList);
+void  Channels (user *User, command *Command, arglist *ArgList);
+void  Clear    (user *User, command *Command, arglist *ArgList);
+void  ClearMsg (user *User, command *Command, arglist *ArgList);
+void  Commands (user *User, command *Command, arglist *ArgList);
+void  Date     (user *User, command *Command, arglist *ArgList);
+void  Emote    (user *User, command *Command, arglist *ArgList);
+void  Finger   (user *User, command *Command, arglist *ArgList);
+void  ForceCmd (user *User, command *Command, arglist *ArgList);
+void  Get      (user *User, command *Command, arglist *ArgList);
+void  Groups   (user *User, command *Command, arglist *ArgList);
+void  Help     (user *User, command *Command, arglist *ArgList);
+void  History  (user *User, command *Command, arglist *ArgList);
+void  Invite   (user *User, command *Command, arglist *ArgList);
+void  Join     (user *User, command *Command, arglist *ArgList);
+void  Kick     (user *User, command *Command, arglist *ArgList);
+void  Kill     (user *User, command *Command, arglist *ArgList);
+void  Leave    (user *User, command *Command, arglist *ArgList);
+void  MkGroup  (user *User, command *Command, arglist *ArgList);
+void  Open     (user *User, command *Command, arglist *ArgList);
+void  Quit     (user *User, command *Command, arglist *ArgList);
+void  Register (user *User, command *Command, arglist *ArgList);
+void  Reply    (user *User, command *Command, arglist *ArgList);
+void  SendData (user *User, command *Command, arglist *ArgList);
+void  SendMsg  (user *User, command *Command, arglist *ArgList);
+void  Set      (user *User, command *Command, arglist *ArgList);
+void  Shout    (user *User, command *Command, arglist *ArgList);
+void  ShowMsg  (user *User, command *Command, arglist *ArgList);
+void  Shutdown (user *User, command *Command, arglist *ArgList);
+void  Switch   (user *User, command *Command, arglist *ArgList);
+void  Tell     (user *User, command *Command, arglist *ArgList);
+void  UnAlias  (user *User, command *Command, arglist *ArgList);
+void  UpTime   (user *User, command *Command, arglist *ArgList);
+void  Users    (user *User, command *Command, arglist *ArgList);
 #if CMD_WALL
-static void  Wall     (user *User, command *Command, arglist *ArgList);
+void  Wall     (user *User, command *Command, arglist *ArgList);
 #endif
 #if CMD_WHEREIS
-static void  WhereIs  (user *User, command *Command, arglist *Arglist);
+void  WhereIs  (user *User, command *Command, arglist *Arglist);
 #endif
-static void  Who      (user *User, command *Command, arglist *ArgList);
+void  Who      (user *User, command *Command, arglist *ArgList);
 
-static int NodeCmp   (const user *User1, const user *User2);
-static int DateCmp   (const user *User1, const user *User2);
-static int NameCmp   (const user *User1, const user *User2);
-static int TimeCmp   (const user *User1, const user *User2);
-static int BirthCmp  (const user *User1, const user *User2);
-static int KickCmp   (const user *User1, const user *User2);
-static int KickedCmp (const user *User1, const user *User2);
+int NodeCmp   (const user *User1, const user *User2);
+int DateCmp   (const user *User1, const user *User2);
+int NameCmp   (const user *User1, const user *User2);
+int TimeCmp   (const user *User1, const user *User2);
+int BirthCmp  (const user *User1, const user *User2);
+int KickCmp   (const user *User1, const user *User2);
+int KickedCmp (const user *User1, const user *User2);
 
-static int AliasCmp  (const alias *Alias1, const alias *Alias2);
+int AliasCmp  (const alias *Alias1, const alias *Alias2);
 
 /* "Constants" */
 
@@ -170,7 +170,7 @@ static command CommandList[] = {
 
    { CMD_PREFIX"Emote",    REGISTER_GROUP, TRUE,  FALSE, "$String",       Emote,    "<Sentence>"                    },
 
-   { CMD_PREFIX"Force",    "HeadArch", TRUE,  TRUE,  "$User $String", Force,    "<User> <Command>"              },
+   { CMD_PREFIX"Force",    "HeadArch", TRUE,  TRUE,  "$User $String",     ForceCmd,    "<User> <Command>"              },
 
    { CMD_PREFIX"Finger",   DEFAULT_GROUP,  TRUE,  FALSE, "",              Finger,   "[<User>]"                      },
    { CMD_PREFIX"Finger",   DEFAULT_GROUP,  TRUE,  FALSE, "$User",         Finger,   "[<User>]"                      },
@@ -240,10 +240,14 @@ static command CommandList[] = {
    { CMD_PREFIX"Users",    ADMIN_GROUP,    TRUE,  FALSE, "$Word",         Users,    "[<Option>] [<Group>]"          },
    { CMD_PREFIX"Users",    ADMIN_GROUP,    TRUE,  FALSE, "$Word $Group",  Users,    "[<Option>] [<Group>]"          },
 
+#if CMD_WHEREIS
    { CMD_PREFIX"WhereIs",  DEFAULT_GROUP,  TRUE,  FALSE, "$User",         WhereIs,  "<User>"                        },
+#endif
 
+#if CMD_WALL
    { CMD_PREFIX"Wall",     DEFAULT_GROUP,  TRUE,  FALSE, "",              Wall,     "[<Message>]"                   },
    { CMD_PREFIX"Wall",     WALL_GROUP, TRUE,  FALSE, "$String",       Wall,     "[<Message>]"                   },
+#endif
 
    { CMD_PREFIX"Who",      DEFAULT_GROUP,  TRUE,  FALSE, "",              Who,      "[<Channel>|All]"               },
    { CMD_PREFIX"Who",      DEFAULT_GROUP,  TRUE,  FALSE, "$Channel",      Who,      "[<Channel>|All]"               },
@@ -256,7 +260,7 @@ static command CommandList[] = {
 
 /* KillArgList() */
 
-static void KillArgList (arglist *ArgList) {
+void KillArgList (arglist *ArgList) {
 
    arglist *Next;
 
@@ -269,7 +273,7 @@ static void KillArgList (arglist *ArgList) {
 
 /* ArgsType() */
 
-static int ArgsType(const char *ArgStr) {
+int ArgsType(const char *ArgStr) {
 
    if (StartWith(ArgStr,"$User"))    return ARG_USER;
    if (StartWith(ArgStr,"$Group"))   return ARG_GROUP;
@@ -285,7 +289,7 @@ static int ArgsType(const char *ArgStr) {
 
 /* renvoie le nombre de lignes generees */
 
-static int AliasExpand(user *User, alias *Alias, char *Args, char *Expand) {
+int AliasExpand(user *User, alias *Alias, char *Args, char *Expand) {
 
    int nblignes = 0, expand_size=1;
    char dummy[1024];
@@ -403,7 +407,7 @@ static int AliasExpand(user *User, alias *Alias, char *Args, char *Expand) {
 
 /* ExecuteCommand() */
 
-static int ExecuteCommand(user *User, char *UserString, int Force) {
+int ExecuteCommand(user *User, char *UserString, int Force) {
 
    int argnb;
    int found=0, exists=0;
@@ -734,7 +738,7 @@ void Execute(user *User, char *UserString, int Force) {
 
 /* SearchCommand() */
 
-static command *SearchCommand(const char *CommandName) {
+command *SearchCommand(const char *CommandName) {
 
    command *Command;
 
@@ -746,7 +750,7 @@ static command *SearchCommand(const char *CommandName) {
 
 /* TimeString() */
 
-static char *TimeString(int Time) {
+char *TimeString(int Time) {
 
    static char String[10];
 
@@ -771,7 +775,7 @@ static char *TimeString(int Time) {
 /* AddUser() */
 /* ok 0 */
 
-static void AddUser(user *User, command *Command, arglist *ArgList) {
+void AddUser(user *User, command *Command, arglist *ArgList) {
 
   user *UId = NULL;
   char *UserName, *Password, *GroupName;
@@ -794,7 +798,7 @@ static void AddUser(user *User, command *Command, arglist *ArgList) {
      SendUser(User,SERVER_HEADER" User '%s' already exists\n",UserName);
      return;
    }
-   
+
    if (! IsPassword(Password)) {
      SendUser(User,SERVER_HEADER" '%s' is not a valid password\n",UserName);
      return;
@@ -820,7 +824,7 @@ static void AddUser(user *User, command *Command, arglist *ArgList) {
 /* Alias() */
 /* vanhu ok 0 */
 
-static void Alias(user *User, command *Command, arglist *ArgList) {
+void Alias(user *User, command *Command, arglist *ArgList) {
 
    char  *AliasName, *CommandName;
    node  *Node;
@@ -860,7 +864,7 @@ static void Alias(user *User, command *Command, arglist *ArgList) {
             DataBaseChanged = TRUE;
          }
          SortList(User->Aliases, (CMP_FCT)AliasCmp);
-      }  
+      }
       else /* on veut juste connaitre la "valeur" de l'alias */
       {
          if (! IsWord(AliasName))
@@ -917,7 +921,7 @@ static void Alias(user *User, command *Command, arglist *ArgList) {
 /* Beep() */
 /* vanhu ok 0 */
 
-static void Beep(user *User, command *Command, arglist *ArgList) {
+void Beep(user *User, command *Command, arglist *ArgList) {
 
    user *Beep;
 
@@ -940,7 +944,7 @@ static void Beep(user *User, command *Command, arglist *ArgList) {
 /* Birthday() */
 /* vanhu ok 0 */
 
-static void Birthday(user *User, command *Command, arglist *ArgList) {
+void Birthday(user *User, command *Command, arglist *ArgList) {
 
    user *BirthdayUser;
    char  Time[32];
@@ -966,7 +970,6 @@ static void Birthday(user *User, command *Command, arglist *ArgList) {
        SendUser(User,SERVER_HEADER" %s's birthday is %s (in %d days)\n",BirthdayUser->Id, Time, date);
        break;
      }
-    
    }
    else
    {
@@ -1000,7 +1003,7 @@ static void Birthday(user *User, command *Command, arglist *ArgList) {
 /* Bump() */
 /* vanhu ok 0 */
 
-static void Bump(user *User, command *Command, arglist *ArgList) {
+void Bump(user *User, command *Command, arglist *ArgList) {
 
    char    *Reason, OldChannelName[ID_SIZE+1];
    user    *Bump;
@@ -1057,7 +1060,7 @@ static void Bump(user *User, command *Command, arglist *ArgList) {
 /* Channels() */
 /* vanhu ok 1 (pas d'arguments !!!) */
 
-static void Channels(user *User, command *Command, arglist *ArgList) {
+void Channels(user *User, command *Command, arglist *ArgList) {
 
    int      ChannelNb = 0;
    node    *Node;
@@ -1080,7 +1083,7 @@ static void Channels(user *User, command *Command, arglist *ArgList) {
 /* Clear() */
 /* vanhu ok 1 (pas d'arguments !!!) */
 
-static void Clear(user *User, command *Command, arglist *ArgList) {
+void Clear(user *User, command *Command, arglist *ArgList) {
 
    static const char Clear[] = { 27, '[', '2', 'J', 27, '[', '0', ';', '0', 'H', '\0' };
 
@@ -1089,7 +1092,7 @@ static void Clear(user *User, command *Command, arglist *ArgList) {
 
 /* ClearMsg() */
 
-static void ClearMsg(user *User, command *Command, arglist *ArgList) {
+void ClearMsg(user *User, command *Command, arglist *ArgList) {
 
    char FileName[STRING_SIZE];
    int FirstLine, LastLine;
@@ -1134,10 +1137,10 @@ static void ClearMsg(user *User, command *Command, arglist *ArgList) {
 
 /* Commands() */
 
-static void Commands(user *User, command *Command, arglist *ArgList) {
+void Commands(user *User, command *Command, arglist *ArgList) {
 
    char lastcname[50];
-   
+
    *lastcname = '\0';
 
    SendUser(User,"  Command     Group                     Usage\n");
@@ -1159,7 +1162,7 @@ static void Commands(user *User, command *Command, arglist *ArgList) {
 /* Date() */
 /* vanhu ok 1 (pas d'arguments !!!) */
 
-static void Date(user *User, command *Command, arglist *ArgList) {
+void Date(user *User, command *Command, arglist *ArgList) {
 
    char TimeString[128];
    time_t   Time;
@@ -1173,7 +1176,7 @@ static void Date(user *User, command *Command, arglist *ArgList) {
 /* Emote() */
 /* vanhu ok 0 */
 
-static void Emote(user *User, command *Command, arglist *ArgList) {
+void Emote(user *User, command *Command, arglist *ArgList) {
 
    if (ArgList == NULL) {
       USAGE(User,Command);
@@ -1187,7 +1190,7 @@ static void Emote(user *User, command *Command, arglist *ArgList) {
 /* Force() */
 /* vanhu ok 0 */
 
-static void Force(user *User, command *Command, arglist *ArgList) {
+void ForceCmd(user *User, command *Command, arglist *ArgList) {
 
    char *CommandName;
    user *Force;
@@ -1216,7 +1219,7 @@ static void Force(user *User, command *Command, arglist *ArgList) {
 /* Finger() */
 /* vanhu ok 0 */
 
-static void Finger(user *User, command *Command, arglist *ArgList) {
+void Finger(user *User, command *Command, arglist *ArgList) {
    int I;
    user *UId;
    char  Time[32];
@@ -1282,7 +1285,7 @@ static void Finger(user *User, command *Command, arglist *ArgList) {
    SendUser(User,SERVER_HEADER" End of finger\n");
 }
 
-static void Get(user *User, command *Command, arglist *ArgList) {
+void Get(user *User, command *Command, arglist *ArgList) {
   int I;
   char    *ObjectName, *Variable, *Args;
   object  *Object;
@@ -1333,7 +1336,7 @@ static void Get(user *User, command *Command, arglist *ArgList) {
     SendUser(User,SERVER_HEADER" regonly is %s\n",(RegOnly)?"on":"off");
     return;
 
-  } 
+  }
   else {
 
     Variable = strpbrk(ObjectName,"\t .");
@@ -1360,7 +1363,7 @@ static void Get(user *User, command *Command, arglist *ArgList) {
   case USER :
 
     UId = (user *) Object;
-      
+
     if (SameString(Variable,"Login") ||
         SameString(Variable,"Id")) {
       SendUser(User,SERVER_HEADER" %s's login is %s ...\n",UId->Id,UId->Id);
@@ -1370,11 +1373,11 @@ static void Get(user *User, command *Command, arglist *ArgList) {
         return;
       }
       SendUser(User,SERVER_HEADER" %s'group is %s\n",UId->Id,UId->Group);
-	
+
     } else if (SameString(Variable,"Password")) {
-	
+
       DENIED(User,Command);
-	
+
     } else if (SameString(Variable,"Name")) {
       SendUser(User,SERVER_HEADER" %s's full name is \"%s\"\n",UId->Id,UId->Name);
     } else if (SameString(Variable,"EMail")) {
@@ -1479,7 +1482,7 @@ static void Get(user *User, command *Command, arglist *ArgList) {
 /* Groups() */
 /* vanhu ok 1 (pas d'arguments !!!) */
 
-static void Groups(user *User, command *Command, arglist *ArgList) {
+void Groups(user *User, command *Command, arglist *ArgList) {
 
    int    GroupNb = 0;
    node  *Node;
@@ -1501,10 +1504,10 @@ static void Groups(user *User, command *Command, arglist *ArgList) {
 
 /* Help() */
 
-static void Help(user *User, command *Command, arglist *ArgList) {
+void Help(user *User, command *Command, arglist *ArgList) {
 
    char *Args;
-   
+
    if (ArgList) Args=(char *) ArgList->arg;
    else Args = "help";
 
@@ -1541,7 +1544,7 @@ void History(user *User, command *Command, arglist *ArgList) {
 /* syntaxe a reetudier ??? invite -> set ..... */
 /*  ok 0 */
 
-static void Invite(user *User, command *Command, arglist *ArgList) {
+void Invite(user *User, command *Command, arglist *ArgList) {
 
    user *Invite;
 
@@ -1560,7 +1563,7 @@ static void Invite(user *User, command *Command, arglist *ArgList) {
 /* Join() */
 /* ok 0 */
 
-static void Join(user *User, command *Command, arglist *ArgList) {
+void Join(user *User, command *Command, arglist *ArgList) {
 
    channel *Channel, *OldChannel;
    object  *Object;
@@ -1639,7 +1642,7 @@ static void Join(user *User, command *Command, arglist *ArgList) {
 /* Kick() */
 /* ok 0 */
 
-static void Kick(user *User, command *Command, arglist *ArgList) {
+void Kick(user *User, command *Command, arglist *ArgList) {
 
    char *Reason;
    user *Kick;
@@ -1674,7 +1677,7 @@ static void Kick(user *User, command *Command, arglist *ArgList) {
 /* Kill() */
 /* ok 0 */
 
-static void Kill(user *User, command *Command, arglist *ArgList) {
+void Kill(user *User, command *Command, arglist *ArgList) {
 
    user *Kill;
    char FileName[STRING_SIZE];
@@ -1728,7 +1731,7 @@ static void Kill(user *User, command *Command, arglist *ArgList) {
 /* Leave() */
 /* ok 1 : pas d'args... */
 
-static void Leave(user *User, command *Command, arglist *ArgList) {
+void Leave(user *User, command *Command, arglist *ArgList) {
 
    channel *Hall, *OldChannel;
    char     OldChannelName[ID_SIZE+1];
@@ -1762,7 +1765,7 @@ static void Leave(user *User, command *Command, arglist *ArgList) {
 /* MkGroup() */
 /* ok 0 */
 
-static void MkGroup(user *User, command *Command, arglist *ArgList) {
+void MkGroup(user *User, command *Command, arglist *ArgList) {
 
    char   *GroupName;
    object *Object;
@@ -1800,7 +1803,7 @@ static void MkGroup(user *User, command *Command, arglist *ArgList) {
 /* Open() */
 /* ok 0 */
 
-static void Open(user *User, command *Command, arglist *ArgList) {
+void Open(user *User, command *Command, arglist *ArgList) {
 
    int PortNum;
 
@@ -1828,7 +1831,7 @@ static void Open(user *User, command *Command, arglist *ArgList) {
 /* Quit() */
 /* ok 0 */
 
-static void Quit(user *User, command *Command, arglist *ArgList) {
+void Quit(user *User, command *Command, arglist *ArgList) {
 
    SendUser(User,SERVER_HEADER" You leave "SERVER_HEADER" Chat !\n");
 
@@ -1842,7 +1845,7 @@ static void Quit(user *User, command *Command, arglist *ArgList) {
 /* Register() */
 /* ok 0 */
 
-static void Register(user *User, command *Command, arglist *ArgList) {
+void Register(user *User, command *Command, arglist *ArgList) {
    char *Args;
 
    if (User->Registered) {
@@ -1878,7 +1881,7 @@ static void Register(user *User, command *Command, arglist *ArgList) {
 /* Reply() */
 /* ok 0 */
 
-static void Reply(user *User, command *Command, arglist *ArgList) {
+void Reply(user *User, command *Command, arglist *ArgList) {
 
    user *Reply;
    char *Args;
@@ -1908,7 +1911,7 @@ static void Reply(user *User, command *Command, arglist *ArgList) {
 
 /* SendData() */
 
-static void SendData(user *User, command *Command, arglist *ArgList) {
+void SendData(user *User, command *Command, arglist *ArgList) {
 
    char *Message;
    user *Tell;
@@ -1922,7 +1925,7 @@ static void SendData(user *User, command *Command, arglist *ArgList) {
 
 /* SendMsg() */
 
-static void SendMsg(user *User, command *Command, arglist *ArgList) {
+void SendMsg(user *User, command *Command, arglist *ArgList) {
 
    user *Tell;
    char FileName[STRING_SIZE], Message[STRING_SIZE];
@@ -1946,7 +1949,7 @@ static void SendMsg(user *User, command *Command, arglist *ArgList) {
 /* Set() */
 /* ok 0 mais a modifier pour d'autres raisons */
 
-static void Set(user *User, command *Command, arglist *ArgList) {
+void Set(user *User, command *Command, arglist *ArgList) {
    int I;
    char    *ObjectName, *Variable, *Value;
    object  *Object;
@@ -2443,7 +2446,7 @@ static void Set(user *User, command *Command, arglist *ArgList) {
 /* Shout() */
 /* ok 0 */
 
-static void Shout(user *User, command *Command, arglist *ArgList) {
+void Shout(user *User, command *Command, arglist *ArgList) {
 
    SendShout(User,SERVER_HEADER" %s shouts: %s\n",User->Id,(char *)ArgList->arg);
    SendUser(User,SERVER_HEADER" You shout: %s\n",(char *)ArgList->arg);
@@ -2451,7 +2454,7 @@ static void Shout(user *User, command *Command, arglist *ArgList) {
 
 /* ShowMsg() */
 
-static void ShowMsg(user *User, command *Command, arglist *ArgList) {
+void ShowMsg(user *User, command *Command, arglist *ArgList) {
 
    char FileName[STRING_SIZE];
    int  MsgNb;
@@ -2476,7 +2479,7 @@ static void ShowMsg(user *User, command *Command, arglist *ArgList) {
 /* Shutdown() */
 /* ok 0 */
 
-static void Shutdown(user *User, command *Command, arglist *ArgList) {
+void Shutdown(user *User, command *Command, arglist *ArgList) {
 
    if (! IsSuperUser(User)) {
       DENIED(User,Command);
@@ -2505,7 +2508,7 @@ static void Shutdown(user *User, command *Command, arglist *ArgList) {
 
 /* Switch() */
 
-static void Switch(user *User, command *Command, arglist *ArgList) {
+void Switch(user *User, command *Command, arglist *ArgList) {
 
    char    *ObjectName, *Variable, *Args;
    object  *Object;
@@ -2718,7 +2721,7 @@ static void Switch(user *User, command *Command, arglist *ArgList) {
 /* Tell() */
 /* ok 0 */
 
-static void Tell(user *User, command *Command, arglist *ArgList) {
+void Tell(user *User, command *Command, arglist *ArgList) {
 
    char *Message;
    user  *Tell;
@@ -2746,7 +2749,7 @@ static void Tell(user *User, command *Command, arglist *ArgList) {
 /* UnAlias() */
 /* ok 0 */
 
-static void UnAlias(user *User, command *Command, arglist *ArgList) {
+void UnAlias(user *User, command *Command, arglist *ArgList) {
 
    char *AliasName;
    alias  *Alias;
@@ -2767,7 +2770,7 @@ static void UnAlias(user *User, command *Command, arglist *ArgList) {
 
 /* UpTime() */
 
-static void UpTime(user *User, command *Command, arglist *ArgList) {
+void UpTime(user *User, command *Command, arglist *ArgList) {
 
    debug  *Debug;
    user   *UpUser;
@@ -2815,7 +2818,7 @@ static void UpTime(user *User, command *Command, arglist *ArgList) {
 /* Users() */
 /* ok 0 */
 
-static void Users(user *User, command *Command, arglist *ArgList) {
+void Users(user *User, command *Command, arglist *ArgList) {
 
    int    I;
    node  *Node;
@@ -2890,9 +2893,9 @@ static void Users(user *User, command *Command, arglist *ArgList) {
 /* Wall() */
 /* ok 0 */
 
-static void Wall(user *User, command *Command, arglist *ArgList) {
+void Wall(user *User, command *Command, arglist *ArgList) {
    char *Args;
-   
+
    Args = ArgList == NULL ? NULL : (char *)ArgList->arg;
 
    if (Args == NULL) {
@@ -2917,7 +2920,7 @@ static void Wall(user *User, command *Command, arglist *ArgList) {
 
 /* WhereIs() */
 
-static void WhereIs(user *User, command *Command, arglist *ArgList) {
+void WhereIs(user *User, command *Command, arglist *ArgList) {
    int i;
    user *WhereIsUser;
    char  FormationTemp[STRING_SIZE], FullFormation[STRING_SIZE], Result[STRING_SIZE];
@@ -2952,7 +2955,7 @@ static void WhereIs(user *User, command *Command, arglist *ArgList) {
 
 /* Who() */
 
-static void Who(user *User, command *Command, arglist *ArgList) {
+void Who(user *User, command *Command, arglist *ArgList) {
 
    int      UserNb = 0;
    time_t   Time;
@@ -3017,7 +3020,7 @@ static void Who(user *User, command *Command, arglist *ArgList) {
 
 /* NodeCmp() */
 
-static int NodeCmp(const user *User1, const user *User2) {
+int NodeCmp(const user *User1, const user *User2) {
 
    if (User1->Type != User2->Type) return User1->Type - User2->Type;
 
@@ -3044,35 +3047,35 @@ static int NodeCmp(const user *User1, const user *User2) {
 
 /* BirthCmp() */
 
-static int BirthCmp(const user *User1, const user *User2) {
+int BirthCmp(const user *User1, const user *User2) {
 
   return User1->dbbn < User2->dbbn;
 }
 
 /* AliasCmp() */
 
-static int AliasCmp(const alias *Alias1, const alias *Alias2){
+int AliasCmp(const alias *Alias1, const alias *Alias2){
 
    return strcmp(Alias1->Id, Alias2->Id);
 }
 
 /* KickCmp() */
 
-static int KickCmp(const user *User1, const user *User2) {
+int KickCmp(const user *User1, const user *User2) {
 
    return User1->KickNb > User2->KickNb;
 }
 
 /* KickedCmp() */
 
-static int KickedCmp(const user *User1, const user *User2) {
+int KickedCmp(const user *User1, const user *User2) {
 
    return User1->KickedNb > User2->KickedNb;
 }
 
 /* DateCmp() */
 
-static int DateCmp(const user *User1, const user *User2) {
+int DateCmp(const user *User1, const user *User2) {
 
    if (User1->Type != User2->Type) return User1->Type - User2->Type;
 
@@ -3094,7 +3097,7 @@ static int DateCmp(const user *User1, const user *User2) {
 
 /* NameCmp() */
 
-static int NameCmp(const user *User1, const user *User2) {
+int NameCmp(const user *User1, const user *User2) {
 
    if (User1->Type != User2->Type) return User1->Type - User2->Type;
 
@@ -3114,7 +3117,7 @@ static int NameCmp(const user *User1, const user *User2) {
 
 /* TimeCmp() */
 
-static int TimeCmp(const user *User1, const user *User2) {
+int TimeCmp(const user *User1, const user *User2) {
 
    if (User1->Type != User2->Type) return User1->Type - User2->Type;
 
