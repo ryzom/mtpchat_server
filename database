@@ -2,6 +2,7 @@
 # <Mtp> Variables
 
 UserNbMax 10
+RegOnly 0
 
 # <Mtp> Groups
 

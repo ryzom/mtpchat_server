@@ -89,6 +89,16 @@ int ReadDataBase(void) {
 
    do {
       if (fgets(Line,LINE_MAXSIZE,DataBase) == NULL) {
+         Error("\"RegOnly ...\" line not found in \"%s\"",DATABASE_NAME);
+         fclose(DataBase);
+         return FALSE;
+      }
+   } while (! StartWith(Line,"RegOnly "));
+
+   RegOnly = atoi(Line+8);
+
+   do {
+      if (fgets(Line,LINE_MAXSIZE,DataBase) == NULL) {
          Error("\"NewUsersFile ...\" line not found in \"%s\"",DATABASE_NAME);
          fclose(DataBase);
          return FALSE;
@@ -413,7 +423,7 @@ void CheckNewUsersFile(void) {
 
 			if (Line[0] != '\n' && Line[0] != '#') {
 
-			        Action    = FirstToken(Line);
+				Action    = FirstToken(Line);
 				UserName  = NextToken();
 				Password  = NextToken();
 				GroupName = NextToken();
