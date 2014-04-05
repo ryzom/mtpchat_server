@@ -639,7 +639,6 @@ int ExecuteCommand(user *User, char *UserString, int Force) {
    }
 
    if (strlen(UserString) > 0 && StartWith(UserString, CMD_PREFIX)) {
-   {
 		 if (exists) {
        /* command not autorised */
        sprintf(errorstring, SERVER_HEADER" %s is an unknown command\n", UserString);
