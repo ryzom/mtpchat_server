@@ -1488,15 +1488,29 @@ void Groups(user *User, command *Command, arglist *ArgList) {
 
    SortList(GroupList,(CMP_FCT)NodeCmp);
 
-   SendUser(User," Group      Leader    Lv            Full Name             S\n");
-   SendUser(User,"-------- ------------ -- -------------------------------- -\n");
-   for (Node = GroupList->Head; Node != NULL; Node = Node->Next) {
-      Group = (group *) Node->Object;
-      if (Group->Type == GROUP) {
-         SendUser(User,"%-8.8s %-12.12s %2d %-32.32s %-1.1s\n",Group->Id,Group->Leader,Group->Level,Group->Name,Group->Symbol);
-         GroupNb++;
+   /* don't display symbol because CeB doesn't support it */
+   if (TRUE) {
+      SendUser(User," Group      Leader    Lv            Full Name\n");
+      SendUser(User,"-------- ------------ -- --------------------------------\n");
+      for (Node = GroupList->Head; Node != NULL; Node = Node->Next) {
+         Group = (group *) Node->Object;
+         if (Group->Type == GROUP) {
+            SendUser(User,"%-8.8s %-12.12s %2d %-32.32s\n",Group->Id,Group->Leader,Group->Level,Group->Name);
+            GroupNb++;
+        }
+     }
+   } else {
+      SendUser(User," Group      Leader    Lv            Full Name             S\n");
+      SendUser(User,"-------- ------------ -- -------------------------------- -\n");
+      for (Node = GroupList->Head; Node != NULL; Node = Node->Next) {
+         Group = (group *) Node->Object;
+         if (Group->Type == GROUP) {
+            SendUser(User,"%-8.8s %-12.12s %2d %-32.32s %-1.1s\n",Group->Id,Group->Leader,Group->Level,Group->Name,Group->Symbol);
+            GroupNb++;
+         }
       }
    }
+
    SendUser(User,SERVER_HEADER" There are %d groups\n",GroupNb);
 }
 
