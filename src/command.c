@@ -544,7 +544,7 @@ int ExecuteCommand(user *User, char *UserString, int Force) {
                      if(nextarg!=NULL) *nextarg=uch;
                      break;
 
-                  case ARG_OBJECT  : 
+                  case ARG_OBJECT  :
 /* non utilise pour le moment... utilite douteuse..... */
                      break;
 
@@ -570,7 +570,7 @@ int ExecuteCommand(user *User, char *UserString, int Force) {
                         argscurr->argtype=ARG_WORD;
                      }
                      if(nextarg != NULL) *nextarg=' ';
-                     
+
                      break;
 
                   case ARG_STRING    :
@@ -608,7 +608,7 @@ int ExecuteCommand(user *User, char *UserString, int Force) {
    }
    if(exists)
    {
-      if(found==0) 
+      if(found==0)
       {
          Command--;
          USAGE(User, Command);
@@ -668,7 +668,7 @@ void Execute(user *User, char *UserString, int Force) {
    char  *UserArgs, UserChar, *nextline, String[STRING_SIZE+1], SysString[STRING_SIZE+1];
    char  *UArgs, UChar;
    alias *Alias;
-   
+
    user *SystemAlias;
 
    if (UserString[0] == '\0') return;
