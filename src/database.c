@@ -251,11 +251,11 @@ int WriteDataBase(void) {
       return FALSE;
    }
 
-   fprintf(DataBase,"\n# <Mtp> Variables\n\n");
+   fprintf(DataBase,"\n# Variables\n\n");
    fprintf(DataBase,"UserNbMax %d\n",UserNbMax);
    fprintf(DataBase,"NewUsersFile %s\n",NewUsersFile);
 
-   fprintf(DataBase,"\n# <Mtp> Groups\n\n# Group|Leader|Level|Name|Symbol\n\n");
+   fprintf(DataBase,"\n# Groups\n\n# Group|Leader|Level|Name|Symbol\n\n");
 
    for (Node = GroupList->Head; Node != NULL; Node = Node->Next) {
       Group = (group *) Node->Object;
@@ -264,7 +264,7 @@ int WriteDataBase(void) {
       }
    }
 
-   fprintf(DataBase,"\n# <Mtp> Users\n\n# User|Group|Password|Name|EMail|Formation|RegisterTime|ConnectTime|Birthday|KickNb|KickedNb|LoginNb|TotalTime|LastLoginHost|LastLoginTime|FailureNb|LastFailHost|LastFailTime\n\n");
+   fprintf(DataBase,"\n# Users\n\n# User|Group|Password|Name|EMail|Formation|RegisterTime|ConnectTime|Birthday|KickNb|KickedNb|LoginNb|TotalTime|LastLoginHost|LastLoginTime|FailureNb|LastFailHost|LastFailTime\n\n");
    for (Node = UserList->Head; Node != NULL; Node = Node->Next) {
       User = (user *) Node->Object;
       if (User->Type == USER && User->Registered) {
@@ -272,7 +272,7 @@ int WriteDataBase(void) {
       }
    }
 
-   fprintf(DataBase,"\n# <Mtp> Aliases\n\n# User|Alias|Command\n\n");
+   fprintf(DataBase,"\n# Aliases\n\n# User|Alias|Command\n\n");
 
    for (Node = UserList->Head; Node != NULL; Node = Node->Next) {
       User = (user *) Node->Object;
@@ -284,7 +284,7 @@ int WriteDataBase(void) {
       }
    }
 
-   fprintf(DataBase,"\n# <Mtp> Plans\n\n# User|LineNumber|Plan\n\n");
+   fprintf(DataBase,"\n# Plans\n\n# User|LineNumber|Plan\n\n");
 
    for (Node = UserList->Head; Node != NULL; Node = Node->Next) {
       User = (user *) Node->Object;
