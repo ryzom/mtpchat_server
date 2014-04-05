@@ -72,7 +72,7 @@ int ReadDataBase(void) {
          fclose(DataBase);
          return FALSE;
       }
-   } while (! SameString(Line,"# <Mtp> Variables\n") || ! SameString(Line,"# Variables\n"));
+   } while (! SameString(Line,"# <Mtp> Variables\n") && ! SameString(Line,"# Variables\n"));
 
    /* # <Mtp> Variables */
    /* UserNbMax ... */
@@ -106,7 +106,7 @@ int ReadDataBase(void) {
          fclose(DataBase);
          return FALSE;
       }
-   } while (! SameString(Line,"# <Mtp> Groups\n") || ! SameString(Line,"# Groups\n"));
+   } while (! SameString(Line,"# <Mtp> Groups\n") && ! SameString(Line,"# Groups\n"));
 
    /* # <Mtp> Groups */
    /* # Group|Leader|Level|Name|Symbol */
@@ -132,7 +132,7 @@ int ReadDataBase(void) {
          if (Group != NULL) AddTail(GroupList,Group);
       }
 
-   } while (! SameString(Line,"# <Mtp> Users\n") || ! SameString(Line,"# Users\n"));
+   } while (! SameString(Line,"# <Mtp> Users\n") && ! SameString(Line,"# Users\n"));
 
    /* # <Mtp> Users */
    /* # User|Group|Password|Name|EMail|Formation|RegisterTime|ConnectTime|Birthday|KickNb|KickedNb|LoginNb|TotalTime|LastLoginHost|LastLoginTime|FailureNb|LastFailHost|LastFailTime */
@@ -171,7 +171,7 @@ int ReadDataBase(void) {
          if (UId != NULL) AddTail(UserList,UId);
       }
 
-   } while (! SameString(Line,"# <Mtp> Aliases\n") || ! SameString(Line,"# Aliases\n"));
+   } while (! SameString(Line,"# <Mtp> Aliases\n") && ! SameString(Line,"# Aliases\n"));
 
    /* # <Mtp> Aliases */
    /* # User|Alias|Command */
@@ -197,7 +197,7 @@ int ReadDataBase(void) {
             if (Alias != NULL) AddTail(User->Aliases,Alias);
          }
       }
-   } while (! SameString(Line,"# <Mtp> Plans\n") || ! SameString(Line,"# Plans\n"));
+   } while (! SameString(Line,"# <Mtp> Plans\n") && ! SameString(Line,"# Plans\n"));
 
    /* # <Mtp> Plans */
    /* # User|LineNumber|Plan */
