@@ -245,7 +245,6 @@ int main(int argc, char *argv[]) {
 
        RebootTime = time(NULL);
        UserNb     = 0;
-       RegOnly    = TRUE; /* Unregistered users can login by default */
 
        Server();
 
