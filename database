@@ -1,11 +1,11 @@
 
-# <Mtp> Variables
+# Variables
 
 UserNbMax 10
 RegOnly 0
 NewUsersFile users
 
-# <Mtp> Groups
+# Groups
 
 # Group|Leader|Level|Name|Symbol
 
@@ -13,11 +13,11 @@ System|Root|12|Administrators|
 HeadArch|Root|11|Nevrax CS Leads|¤
 JoltArch|Root|10|Jolt CS Leads|
 NvxDev|Root|10|Nevrax Developpers|
-SnrGM|Yumeroh|9|Senior Game Masters|ß
+SnrGM|Root|9|Senior Game Masters|ß
 ComMngr|Root|8|Community Managers|
 EvtMngr|Root|8|Event Managers|
 GM|Root|8|Game Masters|@
-VtnGuide|horion|7|Veteran Guides|V
+VtnGuide|Root|7|Veteran Guides|V
 SnrGuide|Root|6|Senior Guides|G
 EvtGuide|Root|5|Event Guides|
 Guide|Root|5|Guides|g
@@ -28,45 +28,45 @@ Register|Root|1|Registered Users|
 NoGroup|Root|0|Unregistered Users|
 Banned|Root|-2|Banned Users|
 
-# <Mtp> Users
+# Users
 
 # User|Group|Password|Name|EMail|Formation|RegisterTime|ConnectTime|Birthday|KickNb|KickedNb|LoginNb|TotalTime|LastLoginHost|LastLoginTime|FailureNb|LastFailHost|LastFailTime
 
-Mtp|System|MTLHwlHN1Z552|<Mtp> Server|letouzey@lifl.fr|programme|845278439|942240397|845287200|0|0|21|3595||0|0||0
-Root|System|oPYoELEA8tPJE|<Mtp> Operator|letouzey@lifl.fr|<Unknown>|845278439|942488517|0|39|0|474|45712||0|0||0
+SoR|System|MTLHwlHN1Z552|<SoR> Server|letouzey@lifl.fr|programme|845278439|942240397|845287200|0|0|21|3595||0|0||0
+Root|System|oPYoELEA8tPJE|<SoR> Operator|letouzey@lifl.fr|<Unknown>|845278439|942488517|0|39|0|474|45712||0|0||0
 
-# <Mtp> Aliases
+# Aliases
 
 # User|Alias|Command
 
-Mtp|.A|.Switch away
-Mtp|.Away|.Switch away
-Mtp|.B|.Set away 0
-Mtp|.Bow|.Emote bows gracefully
-Mtp|.ChCrypt|.Set $1.Crypt $2
-Mtp|.ChGroup|.Set $1.Group $2
-Mtp|.ChLeader|.Set $1.Leader $2
-Mtp|.Close|.Switch Closed
-Mtp|.Et|.Set $*
-Mtp|.Grin|.Emote grins evilly
-Mtp|.Hide|.Switch Hidden
-Mtp|.Laugh|.Emote falls down laughing
-Mtp|.Protect|.Switch Protected
-Mtp|.Q|.Quit $*
-Mtp|.R|.Reply $*
-Mtp|.Resident|.Switch Resident
-Mtp|.Sit|.Emote sits down
-Mtp|.Sleep|.Emote falls fast asleep
-Mtp|.Smile|.Emote smiles happily
-Mtp|.T|.Tell $*
-Mtp|.Topic|.Set Topic $*
-Mtp|.W|.Who all
-Mtp|.Wave|.Emote waves
-Mtp|.WhoAll|.Who all
-Mtp|.ell|.Tell $*
-Mtp|.uit|.Quit $*
+SoR|.A|.Switch away
+SoR|.Away|.Switch away
+SoR|.B|.Set away 0
+SoR|.Bow|.Emote bows gracefully
+SoR|.ChCrypt|.Set $1.Crypt $2
+SoR|.ChGroup|.Set $1.Group $2
+SoR|.ChLeader|.Set $1.Leader $2
+SoR|.Close|.Switch Closed
+SoR|.Et|.Set $*
+SoR|.Grin|.Emote grins evilly
+SoR|.Hide|.Switch Hidden
+SoR|.Laugh|.Emote falls down laughing
+SoR|.Protect|.Switch Protected
+SoR|.Q|.Quit $*
+SoR|.R|.Reply $*
+SoR|.Resident|.Switch Resident
+SoR|.Sit|.Emote sits down
+SoR|.Sleep|.Emote falls fast asleep
+SoR|.Smile|.Emote smiles happily
+SoR|.T|.Tell $*
+SoR|.Topic|.Set Topic $*
+SoR|.W|.Who all
+SoR|.Wave|.Emote waves
+SoR|.WhoAll|.Who all
+SoR|.ell|.Tell $*
+SoR|.uit|.Quit $*
 
-# <Mtp> Plans
+# Plans
 
 # User|LineNumber|Plan
 
