@@ -45,6 +45,13 @@
 #include <errno.h>
 
 #ifdef _WIN32
+
+#include <io.h>
+#include <Windows.h>
+#include <direct.h>
+#include "telnet_win32.h"
+#undef DeleteFile
+
 #else
 #include <unistd.h>
 #include <netdb.h>
@@ -106,10 +113,12 @@ static const uchar LineOff[]    = { IAC, DONT, TELOPT_LINEMODE, '\0' };
 
 static const uchar TimingMark[] = { IAC, WILL, TELOPT_TM, '\0' };
 
+#ifndef _WIN32
 static const int Signal[] = {
    SIGABRT, SIGALRM, SIGCHLD, SIGFPE,  SIGHUP,  SIGILL,  SIGINT,  SIGPIPE,
    SIGQUIT, SIGSEGV, SIGTERM, SIGTSTP, SIGTTIN, SIGTTOU, SIGUSR1, SIGUSR2
 };
+#endif
 
 /* Variables */
 
@@ -287,6 +296,48 @@ static void  GetActiveServer (void){
 
 /* InitProcess() */
 
+#ifdef _WIN32
+
+static void InitProcess(void) {
+
+   char UserName[NAME_SIZE+1], WorkDir[STRING_SIZE], TerminalName[NAME_SIZE+1], *TTyName;
+   int    UMask;
+   DWORD buffer_len;
+   
+   if (!GetUserNameA(UserName, &buffer_len)) {
+	   Error("Couldn't get user name");
+   }
+
+   UMask = umask(_S_IREAD | _S_IWRITE);
+
+   if (getcwd(WorkDir,STRING_SIZE) == NULL) {
+      Error("Couldn't find server work directory");
+   }
+
+   TTyName = ""; // TTY name
+   if (TTyName == NULL) {
+      Warning("Couldn't get stdin tty name");
+      strcpy(TerminalName,"<None>");
+   } else {
+      strncpy(TerminalName,TTyName,NAME_SIZE+1);
+   }
+
+   printf("\n");
+   printf("UserName = %s\n",UserName);
+   printf("UMask    = %03o\n",UMask);
+   printf("WorkDir  = %s\n",WorkDir);
+   printf("Terminal = %s\n",TerminalName);
+   printf("\n");
+
+   umask(_S_IREAD | _S_IWRITE);
+
+   if (chdir(SERVER_PATH) == -1) {
+      FatalError("Couldn't find server directory \"%s\"",SERVER_PATH);
+   }
+}
+
+#else
+
 static void InitProcess(void) {
 
    uid_t  UId, GId, EUId, EGId;
@@ -349,10 +400,53 @@ static void InitProcess(void) {
    }
 }
 
+#endif
+
+#ifdef _WIN32
+BOOL CtrlHandler(DWORD fdwCtrlType) { 
+
+   Warning("Signal #%u received", fdwCtrlType);
+   Trace(SIGNAL_LOG,"#%d", fdwCtrlType);
+	
+   switch (fdwCtrlType) {
+    // Handle the CTRL-C signal.
+    case CTRL_C_EVENT:
+    Exit();
+    return TRUE;
+ 
+    // CTRL-CLOSE: confirm that the user wants to exit. 
+    case CTRL_CLOSE_EVENT: 
+    printf( "Ctrl-Close event\n\n" );
+    return( TRUE ); 
+ 
+    // Pass other signals to the next handler. 
+    case CTRL_BREAK_EVENT:
+    printf( "Ctrl-Break event\n\n" );
+    return FALSE;
+
+    case CTRL_LOGOFF_EVENT: 
+    printf( "Ctrl-Logoff event\n\n" );
+    return FALSE; 
+ 
+    case CTRL_SHUTDOWN_EVENT: 
+    printf( "Ctrl-Shutdown event\n\n" );
+    return FALSE; 
+ 
+    default: 
+    return FALSE;
+// RestartServer()
+  }
+}
+
+#endif
+
 /* InitSignal() */
 
 static void InitSignal(void) {
 
+#ifdef _WIN32
+   BOOL res = SetConsoleCtrlHandler((PHANDLER_ROUTINE) CtrlHandler, TRUE);
+#else
    int I, SignalNb;
    struct sigaction SigAction[1];
 
@@ -390,6 +484,7 @@ static void InitSignal(void) {
       }
       sigaction(Signal[I],SigAction,NULL);
    }
+#endif
 }
 
 /* SigHandler() */
@@ -416,6 +511,7 @@ static void RestartServer(){
 
 }
 
+#ifndef _WIN32
 
 static void SigHandler(int Sig) {
 
@@ -440,10 +536,12 @@ static void SigHandler(int Sig) {
 
       case SIGCHLD : wait(NULL);
                      break;
-   case SIGUSR1 : RestartServer();
+      case SIGUSR1 : RestartServer();
                      break;
    }
 }
+
+#endif
 
 /* Server() */
 
@@ -719,7 +817,6 @@ static void Login(user *User) {
    channel *Channel;
    char FileName[STRING_SIZE], TimeString[32];
    int MsgNb;
-   time_t Time;
 
    Trace(INOUT_LOG,"Login()");
    Channel = SearchChannel(DEFAULT_CHANNEL);
