@@ -8,6 +8,8 @@
 
 */
 
+#ifdef _WIN32
+
 #include "dirent_win32.h"
 #include <errno.h>
 #include <io.h> /* _findfirst and _findnext set errno iff they return -1 */
@@ -146,3 +148,5 @@ void rewinddir(DIR *dir)
     But that said, if there are any problems please get in touch.
 
 */
+
+#endif
