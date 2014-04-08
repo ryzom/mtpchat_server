@@ -27,6 +27,25 @@
 #include <ctype.h>
 
 #ifdef _WIN32
+#include "dirent_win32.h"
+#include <direct.h>
+
+#ifndef S_ISREG
+#define S_ISREG(m)     (((m) & S_IFMT) == S_IFREG)
+#endif
+
+#ifndef S_ISDIR
+#define S_ISDIR(m)     (((m) & S_IFMT) == S_IFDIR)
+#endif
+
+#ifndef S_IRGRP
+#define S_IRGRP S_IREAD
+#endif
+
+#ifndef S_IROTH
+#define S_IROTH S_IREAD
+#endif
+
 #else
 #include <unistd.h>
 #include <dirent.h>
