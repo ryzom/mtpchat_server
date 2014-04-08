@@ -34,6 +34,7 @@ extern int DataBaseChanged;
 
 extern int   ReadDataBase  (void);
 extern int   WriteDataBase (void);
+extern void CheckNewUsersFile (void);
 
 extern char *CryptPassword (const char *Password);
 extern int   CheckPassword (const char *String, const char *Encrypted);
