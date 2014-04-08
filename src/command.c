@@ -298,7 +298,7 @@ int AliasExpand(user *User, alias *Alias, char *Args, char *Expand) {
    char tmpchar;
    int fullargs=1, i;
 
-   bzero(Expand, STRING_SIZE+1);
+   memset(Expand, 0, STRING_SIZE+1);
    userp=Expand;
    aliasp=Alias->Command;
    argsp=Args;
