@@ -24,6 +24,10 @@
 #include <stdarg.h>
 #include <time.h>
 
+#ifdef _WIN32
+#include <WinSock2.h>
+#endif
+
 #include "mtp.h"
 #include "types.h"
 
@@ -36,6 +40,9 @@
 /* Exit() */
 
 void Exit(void) {
+#ifdef _WIN32
+   WSACleanup();
+#endif
 
    Trace(INOUT_LOG,"[shutdown]");
    exit(EXIT_SUCCESS);
