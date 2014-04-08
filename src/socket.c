@@ -27,6 +27,16 @@
 #include <time.h>
 
 #ifdef _WIN32
+#define TELCMDS
+#define TELOPTS
+#include "telnet_win32.h"
+#include <Winsock2.h>
+
+int getdomainname(char *str, size_t len) {
+   strcpy(str, "localhost");
+   return 0;
+}
+
 #else
 #include <unistd.h>
 #include <fcntl.h>
@@ -134,6 +144,17 @@ int InstallSocket(int Port) {
    int   Length, Option;
    char  HostName[NAME_SIZE+1], DomainName[NAME_SIZE+1];
    ear  *Listen;
+#ifdef _WIN32
+   WSADATA wsaData;
+   int iResult;
+
+   // Initialize Winsock
+   iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+   if (iResult != 0) {
+      Error("WSAStartup failed: %d", iResult);
+      return FALSE;
+   }
+#endif
 
    Socket = socket(AF_INET,SOCK_STREAM,0);
    if (Socket == -1) {
@@ -141,9 +162,11 @@ int InstallSocket(int Port) {
       return FALSE;
    }
 
+#ifndef _WIN32
    if (fcntl(Socket,F_SETFL,O_NONBLOCK) == -1) {
       Error("InstallSocket(): fcntl(O_NONBLOCK): %s",strerror(errno));
    }
+#endif
    Option = TRUE;
    if (setsockopt(Socket,SOL_SOCKET,SO_REUSEADDR,(char *)&Option,sizeof(Option)) == -1) {
       Error("InstallSocket(): setsockopt(SO_REUSEADDR): %s",strerror(errno));
@@ -348,9 +371,11 @@ static int Accept(int ListenSocket) {
       }
    }
 
+#ifndef _WIN32
    if (fcntl(Socket,F_SETFL,O_NONBLOCK) == -1) {
       Error("Server(): fcntl(O_NONBLOCK): %s",strerror(errno));
    }
+#endif
    Option = TRUE;
    if (setsockopt(Socket,SOL_SOCKET,SO_KEEPALIVE,(char *)&Option,sizeof(Option)) == -1) {
       Warning("Server(): setsockopt(SO_KEEPALIVE): %s",strerror(errno));
@@ -640,7 +665,11 @@ static int ReadConn(conn *Conn) {
       return FALSE;
    }
 
+#ifdef _WIN32
+   N = recv(Conn->Socket,(char *)Buffer,(size_t)(BUFFER_SIZE-Conn->In->Pos),0);
+#else
    N = read(Conn->Socket,(char *)Buffer,(size_t)(BUFFER_SIZE-Conn->In->Pos));
+#endif
 
    switch (N) {
    case 0 :
@@ -808,7 +837,11 @@ int WriteConn(conn *Conn) {
       return FALSE;
    }
 
+#ifdef _WIN32
+   N = send(Conn->Socket,Conn->Out->Buffer,Conn->Out->Pos,0);
+#else
    N = write(Conn->Socket,Conn->Out->Buffer,Conn->Out->Pos);
+#endif
 
    switch (N) {
    case 0 :
@@ -938,7 +971,11 @@ static int CloseSocket(int *Socket) {
       Error("CloseSocket(): shutdown(): %s",strerror(errno));
    }
 
+#ifdef _WIN32
+   if (closesocket(*Socket) == -1) {
+#else
    if (close(*Socket) == -1) {
+#endif
       Error("CloseSocket(): close(): %s",strerror(errno));
       return FALSE;
    }
