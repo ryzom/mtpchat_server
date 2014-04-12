@@ -75,13 +75,13 @@ int ReadDataBase(void) {
 
    do {
       if (fgets(Line,LINE_MAXSIZE,DataBase) == NULL) {
-         Error("\"# <Mtp> Variables\" line not found in \"%s\"",DATABASE_NAME);
+         Error("\"# Variables\" line not found in \"%s\"",DATABASE_NAME);
          fclose(DataBase);
          return FALSE;
       }
-   } while (! SameString(Line,"# <Mtp> Variables\n") && ! SameString(Line,"# Variables\n"));
+   } while (! SameString(Line,"# Variables\n"));
 
-   /* # <Mtp> Variables */
+   /* # Variables */
    /* UserNbMax ... */
 
    do {
@@ -119,20 +119,20 @@ int ReadDataBase(void) {
 
    do {
       if (fgets(Line,LINE_MAXSIZE,DataBase) == NULL) {
-         Error("\"# <Mtp> Groups\" line not found in \"%s\"",DATABASE_NAME);
+         Error("\"# Groups\" line not found in \"%s\"",DATABASE_NAME);
          fclose(DataBase);
          return FALSE;
       }
-   } while (! SameString(Line,"# <Mtp> Groups\n") && ! SameString(Line,"# Groups\n"));
+   } while (! SameString(Line,"# Groups\n"));
 
-   /* # <Mtp> Groups */
+   /* # Groups */
    /* # Group|Leader|Level|Name|Symbol */
    /* group *NewGroup(const char *Id, const char *Leader, int Level, const char *Name, const char *Symbol); */
 
    do {
 
       if (fgets(Line,LINE_MAXSIZE,DataBase) == NULL) {
-         Error("\"# <Mtp> Users\" line not found in \"%s\"",DATABASE_NAME);
+         Error("\"# Users\" line not found in \"%s\"",DATABASE_NAME);
          fclose(DataBase);
          return FALSE;
       }
@@ -149,16 +149,16 @@ int ReadDataBase(void) {
          if (Group != NULL) AddTail(GroupList,Group);
       }
 
-   } while (! SameString(Line,"# <Mtp> Users\n") && ! SameString(Line,"# Users\n"));
+   } while (! SameString(Line,"# Users\n"));
 
-   /* # <Mtp> Users */
+   /* # Users */
    /* # User|Group|Password|Name|EMail|Formation|RegisterTime|ConnectTime|Birthday|KickNb|KickedNb|LoginNb|TotalTime|LastLoginHost|LastLoginTime|FailureNb|LastFailHost|LastFailTime */
    /* user *NewUId(const char *Id, const char *Group, const char *Password, const char *Name, const char *EMail, const char *Formation, time_t RegisterTime, time_t ConnectTime, time_t Birthday, int KickNb, int KickedNb, int LoginNb, int TotalTime, const char *LastLoginHost, time_t LastLoginTime, int FailureNb, const char *LastFailHost, time_t LastFailTime); */
 
    do {
 
       if (fgets(Line,512,DataBase) == NULL) {
-         Error("\"# <Mtp> Aliases\" line not found in \"%s\"",DATABASE_NAME);
+         Error("\"# Aliases\" line not found in \"%s\"",DATABASE_NAME);
          fclose(DataBase);
          return FALSE;
       }
@@ -188,16 +188,16 @@ int ReadDataBase(void) {
          if (UId != NULL) AddTail(UserList,UId);
       }
 
-   } while (! SameString(Line,"# <Mtp> Aliases\n") && ! SameString(Line,"# Aliases\n"));
+   } while (! SameString(Line,"# Aliases\n"));
 
-   /* # <Mtp> Aliases */
+   /* # Aliases */
    /* # User|Alias|Command */
    /* alias *NewAlias(const char *Id, const char *Command); */
 
    do {
 
       if (fgets(Line,LINE_MAXSIZE,DataBase) == NULL) {
-         Error("\"# <Mtp> Plans\" line not found in \"%s\"",DATABASE_NAME);
+         Error("\"# Plans\" line not found in \"%s\"",DATABASE_NAME);
          fclose(DataBase);
          return FALSE;
       }
@@ -214,9 +214,9 @@ int ReadDataBase(void) {
             if (Alias != NULL) AddTail(User->Aliases,Alias);
          }
       }
-   } while (! SameString(Line,"# <Mtp> Plans\n") && ! SameString(Line,"# Plans\n"));
+   } while (! SameString(Line,"# Plans\n"));
 
-   /* # <Mtp> Plans */
+   /* # Plans */
    /* # User|LineNumber|Plan */
 
    while (fgets(Line,LINE_MAXSIZE,DataBase) != NULL) {
