@@ -15,9 +15,11 @@
 extern char *crypt (const char *, const char *); /* Solashit */
 
 #ifdef _WIN32
+#include "crypt_win32.h"
+
 char* crypt(const char *word, const char *salt)
 {
-	return NULL;
+	return crypt_win32(word, salt);
 }
 #endif
 
