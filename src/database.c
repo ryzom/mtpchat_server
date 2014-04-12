@@ -359,7 +359,7 @@ static char *LastToken(void) {
 char *CryptPassword(const char *Password) {
 
    char Salt[3];
-   static char SaltString[64] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
+   static char SaltString[65] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./";
 
    Salt[0] = SaltString[Rand64()];
    Salt[1] = SaltString[Rand64()];
