@@ -1,16 +1,19 @@
 
 Bienvenue sur le chat de support francophone the Saga of Ryzom !
-Ce chat est soumis aux règles de conduite précisées sur http://www.ryzom.fr/support-1/informations-legales/informations-legales
-Nous vous demandons une attention particulière au langage que vous employez ainsi que d'éviter les phrases en majuscules.
-L'équipe de support francophone (CSR) est à votre disposition ici même :
-Les « ß » rouges sont les SeniorsGMs.
-Les « @ » rouges sont les GMs.
-Les « V » rouges sont les VeteranGuides.
-Les « G » rouges sont les SeniorGuides.
-Les « g » rouges sont les Guides.
+Ce chat est soumis aux rÃ¨gles de conduite prÃ©cisÃ©es sur http://www.ryzom.fr/support-1/informations-legales/informations-legales
+Nous vous demandons une attention particuliÃ¨re au langage que vous employez ainsi que d'Ã©viter les phrases en majuscules.
+L'Ã©quipe de support francophone (CSR) est Ã  votre disposition ici mÃªme :
+Les Game Devs sont reprÃ©sentÃ©s en "Jaune"
+Les Seniors Game Masters sont reprÃ©sentÃ©s en "Mauve"
+Les Game Masters sont reprÃ©sentÃ©s en "Rouge"
+Les Veteran Guides sont reprÃ©sentÃ©s en "Vert"
+Les Senior Guides sont reprÃ©sentÃ©s en "Orange"
+Les Guides sont reprÃ©sentÃ©s en "Beige"
 
 Commandes pratiques :
 .tell <nom> <message> pour contacter une personne en direct
-.away pour passer votre statut en absent/présent
+.away pour passer votre statut en absent/prÃ©sent
 
 To register your account, you have to set your name (.set name <your name>), your email (.set email <your email>) and finally register with .register <password>
+
+This server is using UTF-8 characters encoding.
