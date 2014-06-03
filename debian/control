@@ -1,0 +1,24 @@
+Source: mtpchat-server
+Section: net
+Priority: optional
+Maintainer: Cédric OCHS <kervala@gmail.com>
+Build-Depends: debhelper (>= 7), cmake (>= 2.6)
+Standards-Version: 3.9.1
+
+Package: mtpchat-server
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Mtp chat server
+ Server for <Mtp> chat protocol.
+ .
+ This package is only the daemon.
+
+Package: mtpchat-server-dbg
+Priority: extra
+Section: debug
+Architecture: any
+Depends: ${misc:Depends}, mtpchat-server (= ${binary:Version})
+Description:  Mtp chat server (debug)
+ Server for <Mtp> chat protocol.
+ .
+ This package contains the debug symbols.

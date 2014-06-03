@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+%:
+	dh $@ --buildsystem=cmake
+
+override_dh_strip:
+	dh_strip -pmtpchat-server --dbg-package=mtpchat-server-dbg
+
+override_dh_auto_configure:
+	dh_auto_configure -- -DLIBRARY_ARCHITECTURE=$(DEB_HOST_MULTIARCH) -DTARGET_CPU=$(DEB_HOST_GNU_CPU) -DWITH_SYMBOLS=ON -DETC_PREFIX=/etc/mtpchat-server -DSHARE_PREFIX=/usr/share/mtpchat-server -DWITH_WARNINGS=ON
