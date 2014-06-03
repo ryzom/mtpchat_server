@@ -1,0 +1,15 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#cmakedefine ETC_PREFIX "${ETC_FULL_PREFIX}"
+#cmakedefine SHARE_PREFIX "${SHARE_FULL_PREFIX}"
+#cmakedefine TARGET "${TARGET}"
+#cmakedefine TARGET_ICON "${TARGET_ICON}"
+#cmakedefine PRODUCT "${PRODUCT}"
+#cmakedefine DESCRIPTION "${DESCRIPTION}"
+#cmakedefine VERSION "${VERSION}"
+#cmakedefine VERSION_RC ${VERSION_RC}
+#cmakedefine AUTHOR "${AUTHOR}"
+#cmakedefine YEAR "${YEAR}"
+
+#endif
