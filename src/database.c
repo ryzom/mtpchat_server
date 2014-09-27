@@ -81,7 +81,7 @@ int ReadDataBase(void) {
 
    DataBase = fopen(DATABASE_NAME,"r");
    if (DataBase == NULL) {
-      Error("Couldn't open database");
+      Error("Couldn't open "DATABASE_NAME);
       return FALSE;
    }
 
