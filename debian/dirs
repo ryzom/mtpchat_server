@@ -1,2 +1,3 @@
 /etc/mtpchat-server
 /usr/share/mtpchat-server
+/var/lib/mtpchat-server
