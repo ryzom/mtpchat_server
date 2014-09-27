@@ -68,13 +68,13 @@ ELSE()
 ENDIF()
 
 # Configration file
-INSTALL(FILES database DESTINATION ${DATABASE_NAME})
+INSTALL(FILES database DESTINATION ${ETC_PREFIX})
 
 # Help files are not modified by application
-INSTALL(DIRECTORY help DESTINATION ${HELP_PATH})
+INSTALL(DIRECTORY help DESTINATION ${SHARE_PREFIX})
 
 # Logs files
 INSTALL(FILES log/empty DESTINATION ${LOG_PATH})
 
 # Files that are created and modified by application
-INSTALL(DIRECTORY messages DESTINATION ${MESSAGES_PATH})
+INSTALL(FILES messages/Hall DESTINATION ${MESSAGES_PATH})
