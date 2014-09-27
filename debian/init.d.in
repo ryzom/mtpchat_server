@@ -6,7 +6,7 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: mtpchat-server initscript
-# Description:       Enable service provided by @PACKAGE@.
+# Description:       Enable service provided by mtpchat-server.
 ### END INIT INFO
 
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
