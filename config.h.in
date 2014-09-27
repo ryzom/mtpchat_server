@@ -1,8 +1,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#cmakedefine ETC_PREFIX "${ETC_FULL_PREFIX}"
-#cmakedefine SHARE_PREFIX "${SHARE_FULL_PREFIX}"
+#cmakedefine DATABASE_NAME "${DATABASE_NAME}"
+#cmakedefine HELP_PATH "${HELP_PATH}"
+#cmakedefine LOG_PATH "${LOG_PATH}"
+#cmakedefine MESSAGES_PATH "${MESSAGES_PATH}"
 #cmakedefine TARGET "${TARGET}"
 #cmakedefine TARGET_ICON "${TARGET_ICON}"
 #cmakedefine PRODUCT "${PRODUCT}"

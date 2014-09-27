@@ -35,9 +35,19 @@ char* crypt(const char *word, const char *salt)
 #include "user.h"
 #include "variable.h"
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 /* Constants */
 
+#ifndef MESSAGES_PATH
+#define MESSAGES_PATH "messages"
+#endif
+
+#ifndef DATABASE_NAME
 #define DATABASE_NAME "database"
+#endif
 
 /* Variables */
 
@@ -493,7 +503,7 @@ void CheckNewUsersFile(void) {
 
 				    /* Remove the user's messages */
 				    
-				    sprintf(FileName,"messages/%s",UId->Id);
+				    sprintf(FileName,MESSAGES_PATH"/%s",UId->Id);
 				    if (FileExists(FileName)) DeleteFile(FileName);
 				  }
 				} else {

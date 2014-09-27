@@ -68,6 +68,16 @@
 #include "token.h"
 #include "variable.h"
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+/* Constants */
+
+#ifndef HELP_PATH
+#define HELP_PATH "help"
+#endif
+
 /* Variables */
 
 list UserList[1];
@@ -563,7 +573,7 @@ void SendUsers(const user *Except, const char *Format, ...) {
 
    time_t   Time;
    va_list  Args;
-   char    String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
+   char     String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
    node    *Node;
    user    *User;
 
@@ -591,7 +601,7 @@ void SendInOut(const user *Except, const char *Format, ...) {
 
    time_t   Time;
    va_list  Args;
-   char    String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
+   char     String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
    node    *Node;
    user    *User;
 
@@ -619,7 +629,7 @@ void SendShout(const user *Except, const char *Format, ...) {
 
    time_t   Time;
    va_list  Args;
-   char    String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
+   char     String[STRING_SIZE], String2[STRING_SIZE], String3[STRING_SIZE];
    node    *Node;
    user    *User;
 
@@ -792,7 +802,7 @@ int SendFileWithLineNb(user *User, const char *FileName) {
 
 int SendHelpFile(user *User, const char *FileName) {
 
-   return FindFile(User,FileName,"help");
+   return FindFile(User,FileName,HELP_PATH);
 }
 
 /* FindFile() */

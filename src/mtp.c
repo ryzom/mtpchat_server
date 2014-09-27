@@ -31,9 +31,15 @@
 #include "mtp.h"
 #include "types.h"
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 /* Constants */
 
-#define LOG_PATH "log/"
+#ifndef LOG_PATH
+#define LOG_PATH "log"
+#endif
 
 /* Functions */
 
@@ -104,7 +110,7 @@ void Trace(const char *LogFile, const char *Message, ...) {
    FILE    *Log;
    va_list  Args;
 
-   sprintf(FileName,LOG_PATH "%s",LogFile);
+   sprintf(FileName,LOG_PATH "/%s",LogFile);
    Log = fopen(FileName,"a");
    if (Log == NULL) return;
 

@@ -79,12 +79,23 @@
 #include "user.h"
 #include "variable.h"
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 /* Constants */
 
 #define FAILURE_MAX 3
 
 #define SERVER_PATH "."
-#define LOG_PATH    "log/"
+
+#ifndef LOG_PATH
+#define LOG_PATH "log"
+#endif
+
+#ifndef MESSAGES_PATH
+#define MESSAGES_PATH "messages"
+#endif
 
 #define SERVFILE "activeserver"
 
@@ -178,9 +189,9 @@ int main(int argc, char *argv[]) {
 
        Trace(INOUT_LOG,"[restart]");
        InitHistory(LogHistory,20);
-       LoadHistory(LOG_PATH "inout",LogHistory);
+       LoadHistory(LOG_PATH "/inout",LogHistory);
        InitHistory(WallHistory,20);
-       LoadHistory(LOG_PATH "wall",WallHistory);
+       LoadHistory(LOG_PATH "/wall",WallHistory);
 
        if (! ReadDataBase()) FatalError("Couldn't read database");
 
@@ -287,7 +298,7 @@ static void  GetActiveServer (void){
     ActiveServer[0]='\0';
 
     if(servfile){
-        fgets(ActiveServer, sizeof(ActiveServer), servfile);
+        char *ret = fgets(ActiveServer, sizeof(ActiveServer), servfile);
         fclose(servfile);
     }
 
@@ -861,7 +872,7 @@ static void Login(user *User) {
    }
 
    if (User->Registered) {
-      sprintf(FileName,"messages/%s",User->Id);
+      sprintf(FileName,MESSAGES_PATH"/%s",User->Id);
       if (FileExists(FileName)) {
 	 SendUser(User,SERVER_HEADER" Your message(s) :\n");
 	 MsgNb = SendFileWithLineNb(User,FileName);

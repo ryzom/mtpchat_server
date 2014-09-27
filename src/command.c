@@ -23,7 +23,15 @@
 #include "user.h"
 #include "variable.h"
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 /* Constants */
+
+#ifndef MESSAGES_PATH
+#define MESSAGES_PATH "messages"
+#endif
 
 #define SYSTEMALIASUSER "SoR"
 
@@ -1096,7 +1104,7 @@ void ClearMsg(user *User, command *Command, arglist *ArgList) {
    char FileName[STRING_SIZE];
    int FirstLine, LastLine;
 
-   sprintf(FileName,"messages/%s",User->Id);
+   sprintf(FileName,MESSAGES_PATH"/%s",User->Id);
    if (! FileExists(FileName)) {
       SendUser(User,SERVER_HEADER" You have no message !\n");
       return;
@@ -1736,7 +1744,7 @@ void Kill(user *User, command *Command, arglist *ArgList) {
 
    /* Remove the user's messages */
 
-   sprintf(FileName,"messages/%s",Kill->Id);
+   sprintf(FileName,MESSAGES_PATH"/%s",Kill->Id);
    if (FileExists(FileName)) DeleteFile(FileName);
 }
 
@@ -1948,7 +1956,7 @@ void SendMsg(user *User, command *Command, arglist *ArgList) {
       return;
    }
 
-   sprintf(FileName,"messages/%s",Tell->Id);
+   sprintf(FileName,MESSAGES_PATH"/%s",Tell->Id);
    sprintf(Message,"%s : %s",User->Id,(char *)ArgList->next->arg);
 
    AppendFile(FileName,"%s", Message);
@@ -2471,7 +2479,7 @@ void ShowMsg(user *User, command *Command, arglist *ArgList) {
    char FileName[STRING_SIZE];
    int  MsgNb;
 
-   sprintf(FileName,"messages/%s",User->Id);
+   sprintf(FileName,MESSAGES_PATH"/%s",User->Id);
    if (FileExists(FileName)) {
       SendUser(User,SERVER_HEADER" Your message(s) :\n");
       MsgNb = SendFileWithLineNb(User,FileName);
