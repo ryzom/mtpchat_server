@@ -1,4 +1,3 @@
-
 # Variables
 
 UserNbMax 10
@@ -32,8 +31,8 @@ Banned|Root|-2|Banned Users|
 
 # User|Group|Password|Name|EMail|Formation|RegisterTime|ConnectTime|Birthday|KickNb|KickedNb|LoginNb|TotalTime|LastLoginHost|LastLoginTime|FailureNb|LastFailHost|LastFailTime
 
-SoR|System|MTLHwlHN1Z552|<SoR> Server|letouzey@lifl.fr|programme|845278439|942240397|845287200|0|0|21|3595||0|0||0
-Root|System|oPYoELEA8tPJE|<SoR> Operator|letouzey@lifl.fr|<Unknown>|845278439|942488517|0|39|0|474|45712||0|0||0
+SoR|System|VQS4PsXu6RQn2|<SoR> Server|letouzey@lifl.fr|programme|845278439|942240397|845287200|0|0|21|3595||0|0||0
+Root|System|VQS4PsXu6RQn2|<SoR> Operator|letouzey@lifl.fr|<Unknown>|845278439|942488517|0|0|0|0|0||0|0||0
 
 # Aliases
 
