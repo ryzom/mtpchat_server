@@ -1,0 +1,11 @@
+!WARNING!
+
+Default password for SoR and Root accounts is: Password
+
+To generate or change a password in "database" file:
+
+- use the following command: openssl passwd -crypt
+- type your password when prompted
+- copy/paste this crypted password in "database"
+
+If you're installing from a Debian package, this password will be changed automatically.
