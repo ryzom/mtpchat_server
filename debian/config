@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+# Source debconf library.
+. /usr/share/debconf/confmodule
+
+db_input high mtpchat-server/password || true
+db_input high mtpchat-server/port || true
+db_go || true
+
+exit 0

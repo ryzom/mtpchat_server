@@ -1,0 +1,10 @@
+Template: mtpchat-server/password
+Type: password
+Description: Password:
+ This is the password for system users "Root" and "SoR"
+
+Template: mtpchat-server/port
+Type: string
+Default: 4000
+Description: Port:
+ <Mtp> chat server will be listening on this port.

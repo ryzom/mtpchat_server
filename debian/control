@@ -2,8 +2,8 @@ Source: mtpchat-server
 Section: net
 Priority: optional
 Maintainer: Cédric OCHS <kervala@gmail.com>
-Build-Depends: debhelper (>= 7), cmake (>= 2.6)
-Standards-Version: 3.9.1
+Build-Depends: debhelper (>= 7), cmake (>= 2.8)
+Standards-Version: 3.9.5
 
 Package: mtpchat-server
 Architecture: any
