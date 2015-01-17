@@ -1,13 +1,3 @@
-\name
-channels - display all channels
-\synopsis
-channels
-\description
-Allows you to display all channels.
-\example
-> channels
-Channel  Users                     Topic
--------- ----- ------------------------------------------------
-Hall         1 Welcome to the psychedelic chat!
-There is currently 1 channel
+This command allows you to display the existing channels.
 
+See also: ".help join", ".help hide", ".help close", ".help protect", ".help resident", ".help set"

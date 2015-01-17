@@ -1,0 +1,15 @@
+Switches one of the following variables :
+
+- Away : user goes away or back
+- Bell : activate the bell
+- InOut : ???
+- Join : ???
+- Shout : user can shout or not
+
+- Closed
+- Invite
+- Protected
+- Hidden
+- Resident
+
+- RegOnly
