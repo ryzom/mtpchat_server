@@ -65,7 +65,7 @@ void Warning(const char *Message, ...) {
    vsprintf(String,Message,Args);
    va_end(Args);
 
-   fprintf(stderr,"WARNING : %s...\n",String);
+   /* fprintf(stderr,"WARNING : %s...\n",String); */
    Trace(ERROR_LOG,"WARNING %s",String);
 }
 
@@ -80,7 +80,7 @@ void Error(const char *Message, ...) {
    vsprintf(String,Message,Args);
    va_end(Args);
 
-   fprintf(stderr,"ERROR : %s !\n",String);
+   /* fprintf(stderr,"ERROR : %s !\n",String); */
    Trace(ERROR_LOG,"ERROR   %s",String);
 }
 
@@ -95,7 +95,7 @@ void FatalError(const char *Message, ...) {
    vsprintf(String,Message,Args);
    va_end(Args);
 
-   fprintf(stderr,"FATAL ERROR : %s !!!\n",String);
+   /* fprintf(stderr,"FATAL ERROR : %s !!!\n",String); */
    Trace(ERROR_LOG,"FATAL   %s",String);
 
    Exit();
