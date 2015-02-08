@@ -58,6 +58,8 @@
 #include <pwd.h>
 #include <sys/errno.h>
 #include <sys/wait.h>
+#include <fcntl.h>
+#include <syslog.h>
 
 #include <arpa/telnet.h>
 #endif
@@ -357,6 +359,20 @@ static void InitProcess(void) {
    char   UIdName[NAME_SIZE+1], EUIdName[NAME_SIZE+1], WorkDir[STRING_SIZE], TerminalName[NAME_SIZE+1], *TTyName;
    struct passwd *Password;
 
+   /* Our process ID and Session ID */
+   pid_t pid, sid;
+        
+   /* Fork off the parent process */
+   pid = fork();
+   if (pid < 0) {
+      FatalError("Unable to fork parent process");
+   }
+
+   /* If we got a good PID, then we can exit the parent process. */
+   if (pid > 0) {
+      exit(EXIT_SUCCESS);
+   }
+
    UId = getuid();
    GId = getgid();
    Password = getpwuid(UId);
@@ -406,9 +422,20 @@ static void InitProcess(void) {
 
    umask((mode_t)(S_IRWXG|S_IRWXO));
 
+   /* Create a new SID for the child process */
+   sid = setsid();
+   if (sid < 0) {
+      FatalError("Unable to create SID for the child process");
+   }
+   
    if (chdir(SERVER_PATH) == -1) {
       FatalError("Couldn't find server directory \"%s\"",SERVER_PATH);
    }
+
+   /* Close out the standard file descriptors */
+   close(STDIN_FILENO);
+   close(STDOUT_FILENO);
+   close(STDERR_FILENO);
 }
 
 #endif
