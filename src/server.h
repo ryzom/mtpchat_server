@@ -61,6 +61,8 @@ extern void LoadHistory (const char *FileName, history *History);
 extern void AddHistory  (history *History, const char *Message, ...);
 extern void SendHistory (user *User, const char *HistoryName, const history *History);
 extern void ClearHistory(history *History, int Size);
+extern void CreatePidFile();
+extern void DeletePidFile();
 #endif /* ! defined SERVER_H */
 
 /* End of Server.H */

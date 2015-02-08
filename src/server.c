@@ -99,6 +99,16 @@
 #define MESSAGES_PATH "messages"
 #endif
 
+#ifndef PID_FILE
+
+#ifdef TARGET
+#define PID_FILE "/var/run/"TARGET".pid"
+#else
+#define PID_FILE "/var/run/mtpchat.pid"
+#endif
+
+#endif
+
 #define SERVFILE "activeserver"
 
 #define SERVER_NAME        SERVER_HEADER" Chat v1.82f_acemod2"
@@ -436,6 +446,8 @@ static void InitProcess(void) {
    close(STDIN_FILENO);
    close(STDOUT_FILENO);
    close(STDERR_FILENO);
+
+   CreatePidFile();   
 }
 
 #endif
@@ -1061,6 +1073,22 @@ void SendHistory(user *User, const char *HistoryName, const history *History) {
       if (History->String[I] != NULL) SendUser(User,"%s\n",History->String[I]);
    }
    SendUser(User,SERVER_HEADER" End of %s\n",HistoryName);
+}
+
+void CreatePidFile() {
+#ifndef _WIN32
+   FILE* pidfile = fopen(PID_FILE, "wb");
+   if (pidfile) {
+      fprintf(pidfile, "%ld\n", (long)getpid());
+      fclose(pidfile);
+   }
+#endif
+}
+
+void DeletePidFile() {
+#ifndef _WIN32
+   unlink(PID_FILE);
+#endif
 }
 
 /* End of Server.C */

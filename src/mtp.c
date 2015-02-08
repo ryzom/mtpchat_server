@@ -30,6 +30,7 @@
 
 #include "mtp.h"
 #include "types.h"
+#include "server.h"
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -49,6 +50,8 @@ void Exit(void) {
 #ifdef _WIN32
    WSACleanup();
 #endif
+
+   DeletePidFile();
 
    Trace(INOUT_LOG,"[shutdown]");
    exit(EXIT_SUCCESS);
