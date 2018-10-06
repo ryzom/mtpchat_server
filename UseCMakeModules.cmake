@@ -1,8 +1,18 @@
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} $ENV{CMAKE_MODULE_PATH})
+# Look in local CMakeModules, specified variable CMAKE_MODULE_PATH or environment variable CMAKE_MODULE_PATH
+SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules ${CMAKE_MODULE_PATH} $ENV{CMAKE_MODULE_PATH})
 
-INCLUDE(common OPTIONAL)
+IF(EXISTS ${CMAKE_SOURCE_DIR}/CMakeModules/.hg/hgrc)
+  # Don't try to include common.cmake because it could have been remotely modified
+  SET(REMOTE_CMAKE_MODULES_FOUND ON)
+ELSE()
+  SET(REMOTE_CMAKE_MODULES_FOUND OFF)
 
-IF(WITH_REMOTE_CMAKE_MODULES OR NOT COMMON_MODULE_FOUND OR EXISTS ${CMAKE_SOURCE_DIR}/CMakeModules)
+  # Try to include common.cmake
+  INCLUDE(common OPTIONAL)
+ENDIF()
+
+# If forcing remote modules OR module not found OR found a Merucial repository, try to clone/update it
+IF(WITH_REMOTE_CMAKE_MODULES OR NOT COMMON_MODULE_FOUND)
   FIND_PROGRAM(HG_EXECUTABLE hg
     PATHS
       /opt/local/bin
@@ -12,8 +22,8 @@ IF(WITH_REMOTE_CMAKE_MODULES OR NOT COMMON_MODULE_FOUND OR EXISTS ${CMAKE_SOURCE
 
   IF(HG_EXECUTABLE)
     SET(HG_REPOSITORY "http://hg.kervala.net/cmake_modules")
-  
-    IF(EXISTS ${CMAKE_SOURCE_DIR}/CMakeModules)
+
+    IF(REMOTE_CMAKE_MODULES_FOUND)
       EXECUTE_PROCESS(COMMAND ${HG_EXECUTABLE} pull -u
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/CMakeModules
         ERROR_VARIABLE HG_ERRORS
@@ -38,10 +48,8 @@ IF(WITH_REMOTE_CMAKE_MODULES OR NOT COMMON_MODULE_FOUND OR EXISTS ${CMAKE_SOURCE
     ENDIF()
 
     # retry to include common.cmake
-    SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
-
     INCLUDE(common)
   ELSE()
-    MESSAGE(FATAL_ERROR "You need to install Mercurial or TortoiseHg before to continue! If hg can't be found, you can set the full path of HG_EXECUTABLE variable")
+    MESSAGE(FATAL_ERROR "Unable to find Mercurial to clone CMake modules repository!")
   ENDIF()
 ENDIF()
